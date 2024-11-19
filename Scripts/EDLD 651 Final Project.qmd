@@ -6,5 +6,12 @@ editor: visual
 
 ```{r}
 library(tidyverse)
+library(here)
+library(rio)
+library(knitr)
+
+df<- import(here("Data/36498-6002-Data.rda")) %>% 
+  select(R06_YC9050, R06_YC1124, R06_YC9022, R06_YC1022)
+
 
 ```
