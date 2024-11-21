@@ -9,9 +9,28 @@ library(tidyverse)
 library(here)
 library(rio)
 library(knitr)
+library(labelled)
 
-df<- import(here("Data/36498-6002-Data.rda")) %>% 
-  select(R06_YC9050, R06_YC1124, R06_YC9022, R06_YC1022)
+df<- import(here("Data/36498-6002-Data.rda"))%>% 
+  select(R06_YC9050, R06_YC1124, R06_YC9022, R06_YC1022, R06R_Y_AGECAT2,R06R_Y_SEX, R06R_Y_HISP, R06R_Y_RACECAT3, R06R_Y_PM0130) %>% 
+  rename(harmful=R06_YC9050, 
+         addict=R06_YC1124, 
+         smoker=R06_YC9022, 
+         num_cigs=R06_YC1022,
+         age=R06R_Y_AGECAT2,
+         sex=R06R_Y_SEX, 
+         hisp=R06R_Y_HISP, 
+         race=R06R_Y_RACECAT3, 
+         ses=R06R_Y_PM0130)
+  
+  # mutate(harmful= as.numeric(harmful), addict=as.numeric(addict), age=as.numeric(age)) #COMMENTED OUT BECAUSE THESE AREN'T CONTINUOUS ANYWAY, NOT SURE IF NEED THEM AS NUMERIC 
 
+# df %>% 
+#   ggplot(aes(x=addict, fill=harmful))+
+#   geom_bar()
 
+# df %>% 
+  # ggplot(aes(x=num_cigs, fill=smoker))+
+  # geom_bar()
+#MADE THESE JUST TO DOUBLE CHECK THAT THE VARIABLES LOOK RIGHT 
 ```
