@@ -5,6 +5,7 @@ editor: visual
 ---
 
 ```{r}
+#install.packages("labelled")
 library(tidyverse)
 library(here)
 library(rio)
@@ -108,4 +109,79 @@ df <- df %>%
 
 df_smokers <- df %>% 
   filter(smoker != "NA")
+```
+
+```{r}
+
+#| label: tables
+
+#demographics 
+demographic_table <- df %>% 
+  summarise(
+    total = n(),
+    Male = sum(sex == "Male", na.rm = TRUE),
+    Female = sum(sex == "Female", na.rm = TRUE),
+    Age_12_14 = sum(age == "12-14", na.rm = TRUE),
+    Age_15_17 = sum(age == "15-17", na.rm = TRUE),
+    Hispanic = sum(hisp == "Hispanic", na.rm = TRUE),
+    Not_Hispanic = sum(hisp == "Not Hispanic", na.rm = TRUE),
+    White = sum(race == "White alone", na.rm = TRUE),
+    Black = sum(race == "Black alone", na.rm = TRUE),
+    Other = sum(race == "Other", na.rm = TRUE)) %>% 
+  pivot_longer(cols = -total, names_to = "Demographic", values_to = "Count") %>% 
+  mutate(Percentage = (Count / total) * 100)
+demographic_table
+
+smoker_demographic_table <- df_smokers %>% 
+  summarise(
+    total = n(),
+    Male = sum(sex == "Male", na.rm = TRUE),
+    Female = sum(sex == "Female", na.rm = TRUE),
+    Age_12_14 = sum(age == "12-14", na.rm = TRUE),
+    Age_15_17 = sum(age == "15-17", na.rm = TRUE),
+    Hispanic = sum(hisp == "Hispanic", na.rm = TRUE),
+    Not_Hispanic = sum(hisp == "Not Hispanic", na.rm = TRUE),
+    White = sum(race == "White alone", na.rm = TRUE),
+    Black = sum(race == "Black alone", na.rm = TRUE),
+    Other = sum(race == "Other", na.rm = TRUE)) %>% 
+  pivot_longer(cols = -total, names_to = "Demographic", values_to = "Count") %>% 
+  mutate(Percentage = (Count / total) * 100)
+smoker_demographic_table
+
+#prob table for perception 
+table_harmful <- df %>% 
+  group_by(harmful) %>% 
+  summarise(count = n()) %>% 
+  mutate(prop = count / sum(count)) 
+table_harmful
+
+table_harmful_smokers <- df_smokers %>% 
+  group_by(harmful) %>% 
+  summarise(count = n()) %>% 
+  mutate(prop = count / sum(count)) 
+table_harmful_smokers
+
+
+#prob table for perception by age
+table_harmful_by_age <- df %>% 
+  group_by(age, harmful) %>% 
+  summarise(count = n(), .groups = "drop") %>% 
+  mutate(prop = count / sum(count))
+table_harmful_by_age
+
+table_harmful_by_age_smokers <- df_smokers %>% 
+  group_by(age, harmful) %>% 
+  summarise(count = n(), .groups = "drop") %>% 
+  mutate(prop = count / sum(count))
+table_harmful_by_age_smokers
+
+#smoker status by age
+#not sure about this one, doesn't change if I use df_smokers / remove filter line of code
+table_smoker_age <- df %>% 
+  filter(!is.na(smoker)) %>% 
+  count(smoker, age) %>% 
+  pivot_wider(names_from = age, values_from = n, values_fill = 0)
+table_smoker_age
+
+
 ```
