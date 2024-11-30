@@ -183,5 +183,21 @@ table_smoker_age <- df %>%
   pivot_wider(names_from = age, values_from = n, values_fill = 0)
 table_smoker_age
 
+## I think this table is correct. There are 370 obs in the smoker filter, which is not everyone who identified as a smoker but rather those who answered the question, yes OR no. The smoker demographic table is the demographics of everyone who answered; this table shows what the actual distribution of those answers was
+```
 
+```{r}
+#| label: visuals
+
+df_smokers %>% 
+  ggplot(aes(x=num_cigs)) +
+  geom_histogram(binwidth = 1) +
+  theme_minimal()
+
+df_smokers %>% 
+  group_by(smoker) %>% 
+  summarise(mean_cigs = round(mean(num_cigs, na.rm = T),2)) %>% 
+  ggplot(aes(x=smoker,y=mean_cigs,fill=smoker)) +
+  geom_col() +
+  theme_minimal()
 ```
