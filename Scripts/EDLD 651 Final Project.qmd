@@ -44,62 +44,43 @@ df<- import(here("Data/36498-6002-Data.rda"))%>%
 # Cleaned factor labels
 # Made a subset of only those who answered affirmatively or negatively whether they identify as a smoker
 
+# Set the levels for each variable in advance, and then convert them to factors in a single mutate() to improve readability.
 levels(df$harmful) <- c("1","2","3","4","5")
+levels(df$addict) <- c("1","2","3","4","5")
+levels(df$smoker) <- c("1","2")
+levels(df$age) <- c("1","2")
+levels(df$sex) <- c("1","2")
+levels(df$hisp) <- c("1","2")
+levels(df$race) <- c("1","2","3")
+levels(df$ses) <- c("1","2","3","4","5")
 
 df <- df %>% 
-  mutate(harmful = factor(harmful,
+  mutate(
+    harmful = factor(harmful,
                           levels = c("1","2","3","4","5"),
                           labels = c("Not at all harmful",
                                      "Slightly harmful",
                                      "Somewhat harmful",
                                      "Very harmful",
-                                     "Extremely harmful")))
-
-levels(df$addict) <- c("1","2","3","4","5")
-
-df <- df %>% 
-  mutate(addict = factor(addict,
+                                     "Extremely harmful")),
+    addict = factor(addict,
                           levels = c("1","2","3","4","5"),
                           labels = c("Very unlikely",
                                      "Somewhat unlikely",
                                      "Neither likely nor unlikely",
                                      "Somewhat likely",
-                                     "Very likely")))
-
-levels(df$smoker) <- c("1","2")
-
-df <- df %>% 
-  mutate(smoker = factor(smoker, levels = c("1","2"),
-                         labels = c("Yes","No")))
-
-levels(df$age) <- c("1","2")
-
-df <- df %>% 
-  mutate(age = factor(age, levels = c("1","2"),
-                         labels = c("12-14","15-17")))
-
-levels(df$sex) <- c("1","2")
-
-df <- df %>% 
-  mutate(sex = factor(sex, levels = c("1","2"),
-                         labels = c("Male","Female")))
-
-levels(df$hisp) <- c("1","2")
-
-df <- df %>% 
-  mutate(hisp = factor(hisp, levels = c("1","2"),
-                         labels = c("Hispanic","Not Hispanic")))
-
-levels(df$race) <- c("1","2","3")
-
-df <- df %>% 
-  mutate(race = factor(race, levels = c("1","2","3"),
-                         labels = c("White alone","Black alone","Other")))
-
-levels(df$ses) <- c("1","2","3","4","5")
-
-df <- df %>% 
-  mutate(ses = factor(ses,
+                                     "Very likely")),
+    smoker = factor(smoker, levels = c("1","2"),
+                         labels = c("Yes","No")),
+    age = factor(age, levels = c("1","2"),
+                         labels = c("12-14","15-17")),
+    sex = factor(sex, levels = c("1","2"),
+                         labels = c("Male","Female")),
+    hisp = factor(hisp, levels = c("1","2"),
+                         labels = c("Hispanic","Not Hispanic")),
+    race = factor(race, levels = c("1","2","3"),
+                         labels = c("White alone","Black alone","Other")),
+    ses = factor(ses,
                           levels = c("1","2","3","4","5"),
                           labels = c("Less than $10,000",
                                      "$10,000 to $24,999",
@@ -107,8 +88,9 @@ df <- df %>%
                                      "$50,000 to $99,999",
                                      "$100,000 or more")))
 
+# Changed to using `is.na()` for proper handling of NA values
 df_smokers <- df %>% 
-  filter(smoker != "NA")
+  filter(!is.na(smoker))
 ```
 
 ```{r}
