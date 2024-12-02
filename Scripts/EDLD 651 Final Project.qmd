@@ -279,3 +279,60 @@ summary(m5)
 
 # After adjusting for age, sex, race, and SES, on average in the pop., identifying as a non-smoker is significantly (p < .001) associated with consuming 12.5 fewer cigarettes per [unit of time]
 ```
+
+```{r}
+
+#|label: new-boot-goofing
+
+library(forcats)
+
+df_smokers_dichotomous <- df_smokers %>% 
+  mutate(harmful = fct_collapse(harmful,
+                                `Not harmful` = c("Not at all harmful",
+                                                  "Slightly harmful"),
+                                `Harmful`= c("Somewhat harmful",
+                                             "Very harmful",
+                                             "Extremely harmful")),
+         addict = fct_collapse(addict,
+                               `Not likely` = c("Very unlikely",
+                                                "Somewhat unlikely",
+                                                "Neither likely nor unlikely"),
+                               `Likely` = c("Somewhat likely",
+                                            "Very likely")))
+
+m6 <- glm(smoker~harmful+age+sex+race+ses,
+          data = df_smokers_dichotomous,
+          family = binomial(link = "logit"))
+
+modelsummary(m6, fmt = 2,
+             exponentiate = TRUE,
+             statistic = "conf.int",
+             stars = TRUE,
+             coef_omit = "(Intercept)",
+             gof_omit = "AIC|BIC|Log.Lik|RMSE")
+
+m7 <- glm(smoker~addict+age+sex+race+ses,
+          data = df_smokers_dichotomous,
+          family = binomial(link = "logit"))
+
+modelsummary(m7, fmt = 2,
+             exponentiate = TRUE,
+             statistic = "conf.int",
+             stars = TRUE,
+             coef_omit = "(Intercept)",
+             gof_omit = "AIC|BIC|Log.Lik|RMSE")
+
+m8 <- lm(num_cigs~harmful+age+sex+race+ses,
+   data=df_smokers_dichotomous,
+   na.action = na.omit)
+
+modelsummary(m8,stars = T, fmt = 2,
+             gof_omit = "Adj.|AIC|BIC|RMSE|Log")
+
+m9 <- lm(num_cigs~addict+age+sex+race+ses,
+   data=df_smokers_dichotomous,
+   na.action = na.omit)
+
+modelsummary(m9,stars = T, fmt = 2,
+             gof_omit = "Adj.|AIC|BIC|RMSE|Log")
+```
