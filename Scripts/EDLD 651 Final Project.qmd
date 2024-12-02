@@ -199,7 +199,25 @@ df_smokers %>%
   summarise(mean_cigs = round(mean(num_cigs, na.rm = T),2)) %>% 
   ggplot(aes(x=smoker,y=mean_cigs,fill=smoker)) +
   geom_col() +
-  theme_minimal()
+  theme_minimal()+
+  theme(text = element_text(size = 24))+
+  labs(x="Identifies as Smoker", y="Number of Cigarettes Smoked in Past 30 Days", fill="Smoker")
+
+
+#bar graphs
+df %>% 
+  ggplot(aes(x=harmful, fill=harmful))+
+  geom_bar()+
+  theme_minimal()+
+  labs(x= "Belief of Cigarette Harmfulness", y="Count", fill="Belief")+
+  theme(text = element_text(size = 26))
+
+df %>% 
+  ggplot(aes(x=addict, fill=addict))+
+  geom_bar()+
+  theme_minimal()+
+  labs(x= "Likeliness of Someone Becoming Addicted to Cigarettes", y="Count", fill="Belief")+
+  theme(text = element_text(size = 20))
 ```
 
 ```{r}
