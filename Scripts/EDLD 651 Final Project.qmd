@@ -109,7 +109,11 @@ df <- df %>%
 
 df_smokers <- df %>% 
   filter(smoker != "NA")
+
+
 ```
+
+<!--# Nice job with releving, factoring, and filtering! This part looked clean. I agree, I do not think that the data needed pivoting -->
 
 ```{r}
 
@@ -186,6 +190,8 @@ table_smoker_age
 ## I think this table is correct. There are 370 obs in the smoker filter, which is not everyone who identified as a smoker but rather those who answered the question, yes OR no. The smoker demographic table is the demographics of everyone who answered; this table shows what the actual distribution of those answers was
 ```
 
+<!--# Great tables! I love how many different and unique tables you created. They were clearly created and make sense. I like that you created columns for proportions and percentages. This is helpful for me to be reminded of how to do this effectively.  -->
+
 ```{r}
 #| label: visuals
 
@@ -201,6 +207,8 @@ df_smokers %>%
   geom_col() +
   theme_minimal()
 ```
+
+<!--# Do you need the legend for the bar chart? The x axis (smoker yes or no) is the same as the legend (smoker yes or no). You could consider graphing whether smoker x mean cigs is impacted by a third variable and have that be the fill of the graphs. -->
 
 ```{r}
 #| label: regression models
@@ -279,3 +287,5 @@ summary(m5)
 
 # After adjusting for age, sex, race, and SES, on average in the pop., identifying as a non-smoker is significantly (p < .001) associated with consuming 12.5 fewer cigarettes per [unit of time]
 ```
+
+<!--# Clean linear models! I love how you included comments in the code to help remind yourself of what and why you did each step.  -->
