@@ -234,12 +234,12 @@ cons_age <-df_smokers %>%
   # labs(x= "Belief of Cigarette Harmfulness", y="Count", fill="Belief")+
   # theme(text = element_text(size = 26))
 
-harm_race <- df %>%
+harm_ses <- df %>%
   ggplot(aes(x = ses, fill = harmful)) +  # x-axis = race, fill = harmful beliefs
   geom_bar(position = "stack") +  # Stacked bar chart
   theme_minimal() +
   labs(
-    x = "Race",
+    x = "Income",
     y = "Count",
     fill = "Perceptions of harm",
     title = "Perceptions of cigarette harm by income level", 
