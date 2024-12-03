@@ -1,6 +1,8 @@
 ---
 title: "EDLD 651 Final Project"
 format: html
+html:
+  code-fold: True
 editor: visual
 ---
 
@@ -422,8 +424,6 @@ m10 <- lm(num_cigs~smoker+age+sex+race+ses,
 summary(m10)
 ```
 
-
 ```{r}
 
 ```
-
