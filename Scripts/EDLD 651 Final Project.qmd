@@ -146,17 +146,13 @@ plot_1 <- ggplot(demographic_table, aes(x = Demographic, y = Percentage, fill = 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 plot_1
 
-kable_table <- demographic_table %>%
-  kbl(caption = "Demographic Distribution of Participants", 
-      col.names = c("Demographic Group", "Count", "Percentage"),
-      digits = 2,  # Limit percentage to 2 decimal points
-      align = c("l", "r", "r")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), 
-                full_width = FALSE) %>%
-  column_spec(1, bold = TRUE) %>% # Bold the first column
-  add_header_above(c(" " = 1, "Summary" = 2)) %>%
-  row_spec(0, bold = TRUE, color = "white", background = "#4CAF50")
-kable_table
+demographic_table_cleaned <- demographic_table %>%
+  select(-total)
+
+kable_table_total <- demographic_table_cleaned %>%
+  kbl(caption = "Demographic Distribution of Participants", align = "c") %>%
+  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover", "condensed"))
+kable_table_total
 
 smoker_demographic_table <- df_smokers %>% 
   summarise(
@@ -173,6 +169,16 @@ smoker_demographic_table <- df_smokers %>%
   pivot_longer(cols = -total, names_to = "Demographic", values_to = "Count") %>% 
   mutate(Percentage = (Count / total) * 100)
 smoker_demographic_table
+
+smoker_demographic_table_cleaned <- smoker_demographic_table %>%
+  select(-total)
+
+kable_table_smokers <- smoker_demographic_table_cleaned %>%
+  kbl(caption = "Smoker Demographic Distribution",align = "c" ) %>%
+  kable_styling(
+    full_width = FALSE,
+    bootstrap_options = c("striped", "hover", "condensed"))
+kable_table_smokers
 
 plot_2 <- ggplot(smoker_demographic_table, aes(x = Demographic, y = Percentage, fill = Demographic)) +
   geom_bar(stat = "identity", show.legend = FALSE) +
