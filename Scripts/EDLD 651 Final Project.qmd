@@ -8,7 +8,7 @@ editor: visual
 
 ```{r}
 #install.packages("labelled")
-install.packages("kableExtra")
+#install.packages("kableExtra")
 library(tidyverse)
 library(here)
 library(rio)
@@ -147,11 +147,26 @@ plot_1 <- ggplot(demographic_table, aes(x = Demographic, y = Percentage, fill = 
 plot_1
 
 demographic_table_cleaned <- demographic_table %>%
-  select(-total)
+  select(-total) %>%
+  mutate(
+    Percentage = round(Percentage, 2), 
+    Demographic = case_when(
+      Demographic == "Age_12_14" ~ "Ages 12-14",
+      Demographic == "Age_15_17" ~ "Ages 15-17",
+      Demographic == "Male" ~ "Male",
+      Demographic == "Female" ~ "Female",
+      Demographic == "Hispanic" ~ "Hispanic",
+      Demographic == "Not_Hispanic" ~ "Not Hispanic",
+      Demographic == "White" ~ "White",
+      Demographic == "Black" ~ "Black",
+      Demographic == "Other" ~ "Other",
+      TRUE ~ Demographic))
 
 kable_table_total <- demographic_table_cleaned %>%
   kbl(caption = "Demographic Distribution of Participants", align = "c") %>%
-  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(
+    full_width = FALSE,
+    bootstrap_options = c("striped", "hover", "condensed"))
 kable_table_total
 
 smoker_demographic_table <- df_smokers %>% 
@@ -171,10 +186,21 @@ smoker_demographic_table <- df_smokers %>%
 smoker_demographic_table
 
 smoker_demographic_table_cleaned <- smoker_demographic_table %>%
-  select(-total)
-
+  select(-total) %>%
+  mutate(Percentage = round(Percentage, 2),
+      Demographic = case_when(
+      Demographic == "Age_12_14" ~ "Ages 12-14",
+      Demographic == "Age_15_17" ~ "Ages 15-17",
+      Demographic == "Male" ~ "Male",
+      Demographic == "Female" ~ "Female",
+      Demographic == "Hispanic" ~ "Hispanic",
+      Demographic == "Not_Hispanic" ~ "Not Hispanic",
+      Demographic == "White" ~ "White",
+      Demographic == "Black" ~ "Black",
+      Demographic == "Other" ~ "Other",
+      TRUE ~ Demographic))
 kable_table_smokers <- smoker_demographic_table_cleaned %>%
-  kbl(caption = "Smoker Demographic Distribution",align = "c" ) %>%
+  kbl(caption = "Smoker Demographic Distribution", align = "c") %>%
   kable_styling(
     full_width = FALSE,
     bootstrap_options = c("striped", "hover", "condensed"))
