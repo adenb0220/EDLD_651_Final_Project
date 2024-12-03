@@ -364,7 +364,8 @@ modelsummary(m5,stars = T, fmt = 2,
                              "raceOther" = "Other Racial Identity"),
              gof_omit = "Adj.|AIC|BIC|RMSE|Log",
              title = "Associations between Smoker Status,
-             Demographic Variables, and Num. of Cigs")
+             Demographic Variables, and Num. of Cigs",
+             output = "EDLD651_model5_table.jpg")
 
 # After adjusting for age, sex, race, and SES, on average in the pop., identifying as a non-smoker is significantly (p < .001) associated with consuming 12.5 fewer cigarettes per [unit of time]
 ```
