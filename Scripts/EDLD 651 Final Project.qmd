@@ -5,7 +5,7 @@ editor: visual
 ---
 
 ```{r}
-#install.packages("labelled")
+install.packages("labelled")
 library(tidyverse)
 library(here)
 library(rio)
@@ -38,7 +38,7 @@ df<- import(here("Data/36498-6002-Data.rda"))%>%
 
 ```{r}
 
-#| label: cleaning
+# | label: cleaning
 
 # Didn't think the data needed pivoting
 # Cleaned factor labels
@@ -114,6 +114,8 @@ df_smokers <- df %>%
 ```{r}
 
 #| label: tables
+
+#I think it would be helpful if you used gt() or kable() instead of tibble because then you can control the aesthetics of it and you can more easily use it for your final presentation and project!
 
 #demographics 
 demographic_table <- df %>% 
