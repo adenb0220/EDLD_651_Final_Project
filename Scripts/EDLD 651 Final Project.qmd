@@ -11,6 +11,7 @@ library(here)
 library(rio)
 library(knitr)
 library(labelled)
+library(RColorBrewer)
 
 df<- import(here("Data/36498-6002-Data.rda"))%>% 
   select(R06_YC9050, R06_YC1124, R06_YC9022, R06_YC1022, R06R_Y_AGECAT2,R06R_Y_SEX, R06R_Y_HISP, R06R_Y_RACECAT3, R06R_Y_PM0130) %>% 
@@ -189,35 +190,93 @@ table_smoker_age
 ```{r}
 #| label: visuals
 
-df_smokers %>% 
-  ggplot(aes(x=num_cigs)) +
-  geom_histogram(binwidth = 1) +
-  theme_minimal()
+# df_smokers %>% 
+#   ggplot(aes(x=num_cigs)) +
+#   geom_histogram(binwidth = 1) +
+#   theme_minimal()
 
-df_smokers %>% 
-  group_by(smoker) %>% 
-  summarise(mean_cigs = round(mean(num_cigs, na.rm = T),2)) %>% 
-  ggplot(aes(x=smoker,y=mean_cigs,fill=smoker)) +
-  geom_col() +
-  theme_minimal()+
-  theme(text = element_text(size = 24))+
-  labs(x="Identifies as Smoker", y="Number of Cigarettes Smoked in Past 30 Days", fill="Smoker")
+# df_smokers %>% 
+#   group_by(smoker) %>% 
+#   summarise(mean_cigs = round(mean(num_cigs, na.rm = T),2)) %>% 
+#   ggplot(aes(x=smoker,y=mean_cigs,fill=smoker)) +
+#   geom_col() +
+#   theme_minimal()+
+#   theme(text = element_text(size = 24))+
+#   labs(x="Identifies as Smoker", y="Number of Cigarettes Smoked in Past 30 Days", fill="Smoker")
+
+
+# Create age groups and summarize the data
+cons_age <-df_smokers %>%
+  group_by(age, smoker) %>% 
+  summarise(mean_cigs = round(mean(num_cigs, na.rm = TRUE), 2)) %>%  
+  ggplot(aes(x = age, y = mean_cigs, fill = smoker)) +
+  geom_col(position = "dodge") +  
+   geom_text(aes(label = mean_cigs), 
+            position = position_dodge(width = 0.9), 
+            vjust = -0.5, size = 3) +
+  theme_minimal() +
+  labs(
+    x = "Age Group",
+    y = "Average Number of Cigarettes Smoked in Past 30 Days",
+    fill = "Smoker Status",
+    title = "Cigarette Consumption by Age Group and Smoker Status", 
+    caption = 'Source: Population Assessment of Tobacco and Health,
+    “DS6002 Wave 6: Youth / Parent Questionnaire Data” ') +
+ scale_fill_brewer(palette="Dark2")
+
 
 
 #bar graphs
-df %>% 
-  ggplot(aes(x=harmful, fill=harmful))+
-  geom_bar()+
-  theme_minimal()+
-  labs(x= "Belief of Cigarette Harmfulness", y="Count", fill="Belief")+
-  theme(text = element_text(size = 26))
+  # df %>% 
+  # ggplot(aes(x=harmful, fill=harmful))+
+  # geom_bar()+
+  # theme_minimal()+
+  # labs(x= "Belief of Cigarette Harmfulness", y="Count", fill="Belief")+
+  # theme(text = element_text(size = 26))
 
-df %>% 
-  ggplot(aes(x=addict, fill=addict))+
-  geom_bar()+
-  theme_minimal()+
-  labs(x= "Likeliness of Someone Becoming Addicted to Cigarettes", y="Count", fill="Belief")+
-  theme(text = element_text(size = 20))
+harm_race <- df %>%
+  ggplot(aes(x = ses, fill = harmful)) +  # x-axis = race, fill = harmful beliefs
+  geom_bar(position = "stack") +  # Stacked bar chart
+  theme_minimal() +
+  labs(
+    x = "Race",
+    y = "Count",
+    fill = "Perceptions of harm",
+    title = "Perceptions of cigarette harm by income level", 
+    caption = 'Source: Population Assessment of Tobacco and Health “DS6002 Wave 6: Youth / Parent Questionnaire Data” '
+  ) +
+  scale_fill_brewer(palette = "Dark2")
+
+
+# df %>% 
+#   ggplot(aes(x=addict, fill=addict))+
+#   geom_bar()+
+#   theme_minimal()+
+#   labs(x= "Likeliness of Someone Becoming Addicted to Cigarettes", y="Count", fill="Belief")+
+#   theme(text = element_text(size = 20))
+
+
+smoke_like_circle <- df_smokers %>%
+  count(addict) %>%
+  mutate(
+    percent = n / sum(n) * 100,  
+    label_pos = cumsum(percent) - percent / 2) %>%
+  ggplot(aes(x = "", y = percent, fill = addict)) +
+  geom_bar(stat = "identity", width = 1) + 
+  coord_polar("y", start = 0) +
+  geom_text(aes(label = ifelse(percent > 5, paste0(round(percent, 1), "%"), "")),
+    position = position_stack(vjust = 0.5),
+    size = 5,
+    color = "white" ) +
+  labs(title = "Nearly 50% of participants report the likeliness of becoming addicted \nto cigarettes as very likely",
+    caption = 'Source: Population Assessment of Tobacco and Health, “DS6002 Wave 6: Youth / Parent Questionnaire Data” ') +
+  theme_void() +
+  theme(
+    legend.title = element_blank()) + 
+   scale_fill_brewer(palette="Dark2")
+
+
+
 ```
 
 ```{r}
@@ -230,6 +289,8 @@ library(modelsummary)
 m1 <- glm(smoker~harmful+age+sex+race+ses,
           data = df_smokers,
           family = binomial(link = "logit"))
+
+
 
 modelsummary(m1, fmt = 2,
              exponentiate = TRUE,
@@ -360,3 +421,9 @@ m10 <- lm(num_cigs~smoker+age+sex+race+ses,
 
 summary(m10)
 ```
+
+
+```{r}
+
+```
+
