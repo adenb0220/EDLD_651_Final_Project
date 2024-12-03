@@ -8,12 +8,14 @@ editor: visual
 
 ```{r}
 #install.packages("labelled")
+install.packages("kableExtra")
 library(tidyverse)
 library(here)
 library(rio)
 library(knitr)
 library(labelled)
 library(RColorBrewer)
+library(kableExtra)
 
 df<- import(here("Data/36498-6002-Data.rda"))%>% 
   select(R06_YC9050, R06_YC1124, R06_YC9022, R06_YC1022, R06R_Y_AGECAT2,R06R_Y_SEX, R06R_Y_HISP, R06R_Y_RACECAT3, R06R_Y_PM0130) %>% 
@@ -135,6 +137,27 @@ demographic_table <- df %>%
   mutate(Percentage = (Count / total) * 100)
 demographic_table
 
+plot_1 <- ggplot(demographic_table, aes(x = Demographic, y = Percentage, fill = Demographic)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  coord_flip() +  
+  theme_minimal() +
+  labs(title = "Demographic Distribution", x = "Demographic Group", y = "Percentage") +
+  scale_fill_brewer(palette = "Set3") +  
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+plot_1
+
+kable_table <- demographic_table %>%
+  kbl(caption = "Demographic Distribution of Participants", 
+      col.names = c("Demographic Group", "Count", "Percentage"),
+      digits = 2,  # Limit percentage to 2 decimal points
+      align = c("l", "r", "r")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), 
+                full_width = FALSE) %>%
+  column_spec(1, bold = TRUE) %>% # Bold the first column
+  add_header_above(c(" " = 1, "Summary" = 2)) %>%
+  row_spec(0, bold = TRUE, color = "white", background = "#4CAF50")
+kable_table
+
 smoker_demographic_table <- df_smokers %>% 
   summarise(
     total = n(),
@@ -150,6 +173,15 @@ smoker_demographic_table <- df_smokers %>%
   pivot_longer(cols = -total, names_to = "Demographic", values_to = "Count") %>% 
   mutate(Percentage = (Count / total) * 100)
 smoker_demographic_table
+
+plot_2 <- ggplot(smoker_demographic_table, aes(x = Demographic, y = Percentage, fill = Demographic)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  coord_flip() +  
+  theme_minimal() +
+  labs(title = "Smoker Demographic Distribution", x = "Demographic Group", y = "Percentage") +
+  scale_fill_brewer(palette = "Set3") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+plot_2
 
 #prob table for perception 
 table_harmful <- df %>% 
