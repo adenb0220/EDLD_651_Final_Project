@@ -204,6 +204,7 @@ df_smokers %>%
   theme_minimal()+
   theme(text = element_text(size = 24))+
   labs(x="Identifies as Smoker", y="Number of Cigarettes Smoked in Past 30 Days", fill="Smoker")
+#remember to add a title!
 
 
 #bar graphs
@@ -213,6 +214,7 @@ df %>%
   theme_minimal()+
   labs(x= "Belief of Cigarette Harmfulness", y="Count", fill="Belief")+
   theme(text = element_text(size = 26))
+#This is a great plot! For this one and the one below, it could be good to rotate the x axis labels 45 degrees to improve readability
 
 df %>% 
   ggplot(aes(x=addict, fill=addict))+
@@ -232,6 +234,8 @@ library(modelsummary)
 m1 <- glm(smoker~harmful+age+sex+race+ses,
           data = df_smokers,
           family = binomial(link = "logit"))
+
+#I know this isn't totally necessary for this class, but it might be worth doing a correlation matrix of these variables before adding them all to one model
 
 modelsummary(m1, fmt = 2,
              exponentiate = TRUE,
