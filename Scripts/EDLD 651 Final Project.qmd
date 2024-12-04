@@ -256,23 +256,32 @@ table_smoker_age
 ```{r}
 #| label: visuals
 
-# df_smokers %>% 
+# df_smokers %>%
 #   ggplot(aes(x=num_cigs)) +
 #   geom_histogram(binwidth = 1) +
 #   theme_minimal()
 
-# df_smokers %>% 
-#   group_by(smoker) %>% 
-#   summarise(mean_cigs = round(mean(num_cigs, na.rm = T),2)) %>% 
-#   ggplot(aes(x=smoker,y=mean_cigs,fill=smoker)) +
-#   geom_col() +
-#   theme_minimal()+
-#   theme(text = element_text(size = 24))+
-#   labs(x="Identifies as Smoker", y="Number of Cigarettes Smoked in Past 30 Days", fill="Smoker")
 
+# Smoker identity by age 
+#Iteration 1.a
+df_smokers %>%
+  group_by(smoker) %>%
+  summarise(mean_cigs = round(mean(num_cigs, na.rm = T),2)) %>%
+  ggplot(aes(x=smoker,y=mean_cigs,fill=smoker)) +
+  geom_col() 
 
-# Create age groups and summarize the data
-cons_age <-df_smokers %>%
+#Iteration 2.a 
+df_smokers %>%
+  group_by(smoker) %>%
+  summarise(mean_cigs = round(mean(num_cigs, na.rm = T),2)) %>%
+  ggplot(aes(x=smoker,y=mean_cigs,fill=smoker)) +
+  geom_col() +
+  theme_minimal()+
+  theme(text = element_text(size = 24))+
+  labs(x="Identifies as Smoker", y="Number of Cigarettes Smoked in Past 30 Days", fill="Smoker")
+
+#Iteration 3.a
+df_smokers %>%
   group_by(age, smoker) %>% 
   summarise(mean_cigs = round(mean(num_cigs, na.rm = TRUE), 2)) %>%  
   ggplot(aes(x = age, y = mean_cigs, fill = smoker)) +
@@ -284,23 +293,60 @@ cons_age <-df_smokers %>%
   labs(
     x = "Age Group",
     y = "Average Number of Cigarettes Smoked in Past 30 Days",
-    fill = "Smoker Status",
+    fill = "Smoker \n Status",
     title = "Cigarette Consumption by Age Group and Smoker Status", 
     caption = 'Source: Population Assessment of Tobacco and Health,
     “DS6002 Wave 6: Youth / Parent Questionnaire Data” ') +
  scale_fill_brewer(palette="Dark2")
 
+# Final iteration 
+cons_age <-df_smokers %>%
+  group_by(age, smoker) %>% 
+  summarise(mean_cigs = round(mean(num_cigs, na.rm = TRUE), 2)) %>%  
+  ggplot(aes(x = age, y = mean_cigs, fill = smoker)) +
+  geom_col(position = "dodge") +  
+   geom_text(aes(label = mean_cigs), 
+            position = position_dodge(width = 0.9), 
+            vjust = -0.5, size = 3) +
+  labs(
+    x = "Age Group",
+    y = "Average Number of Cigarettes Smoked in Past 30 Days",
+    fill = "Smoker \n Status",
+    title = "Cigarette Consumption by Age Group and Smoker Status", 
+    subtitle = 'Non smokers age 12-14 average 1 cigarette per month, while non-smokers age 15-17 average 2.45 cigarettes per month',
+    caption = 'Source: Population Assessment of Tobacco and Health,
+    “DS6002 Wave 6: Youth / Parent Questionnaire Data” ') +
+ scale_fill_brewer(palette="Dark2")  +
+    theme(plot.title= element_markdown(margin = margin(b=5),hjust=0, size = 16, face ='bold'),
+        plot.subtitle = element_markdown(margin= margin (b= 5), hjust= 0, size= 12, face ='italic'),
+    panel.background = element_rect(fill='white',colour='white'),
+    axis.ticks= element_blank(),
+    panel.grid.major.y = element_line(color      = "grey80", 
+                                              linewidth  = 0.5, 
+                                              linetype   = "dashed"),
+    plot.caption= element_text(hjust = 0.01, 
+                               size = 9,
+                               margin=margin(t=0)))
 
 
-#bar graphs
-  # df %>% 
-  # ggplot(aes(x=harmful, fill=harmful))+
-  # geom_bar()+
-  # theme_minimal()+
-  # labs(x= "Belief of Cigarette Harmfulness", y="Count", fill="Belief")+
-  # theme(text = element_text(size = 26))
 
-harm_ses <- df %>%
+# Perceptions of cigarette harm by income level
+#Iteration 1.b 
+df %>%
+ggplot(aes(x=harmful, fill=harmful))+
+geom_bar()
+
+
+#Iteration 2.b 
+df %>%
+ggplot(aes(x=harmful, fill=harmful))+
+geom_bar()+
+theme_minimal()+
+labs(x= "Belief of Cigarette Harmfulness", y="Count", fill="Belief")+
+theme(text = element_text(size = 26))
+
+#Iteration 3.b 
+df %>%
   ggplot(aes(x = ses, fill = harmful)) +  # x-axis = race, fill = harmful beliefs
   geom_bar(position = "stack") +  # Stacked bar chart
   theme_minimal() +
@@ -313,16 +359,78 @@ harm_ses <- df %>%
   ) +
   scale_fill_brewer(palette = "Dark2")
 
+# 4.b
+df %>%
+  ggplot(aes(x = ses, fill = harmful)) + 
+  geom_bar(position = "stack") +    
+  theme_minimal() +
+  labs(
+    x = "Income",
+    y = "Count",
+    fill = "Perceptions of harm",
+    title = "Perceptions of cigarette harm by income level", 
+    subtitle = 'Statement',
+    caption = 'Source: Population Assessment of Tobacco and Health \n“DS6002 Wave 6: Youth / Parent Questionnaire Data” '
+  ) +
+  scale_fill_brewer(palette = "Dark2") + 
+    theme(plot.title= element_markdown(margin = margin(b=5),hjust=0, size = 16, face ='bold'),
+        plot.subtitle = element_markdown(margin= margin (b= 5), hjust= 0, size= 12, face ='italic'),
+    panel.background = element_rect(fill='white',colour='white'),
+    axis.ticks= element_blank(),
+    panel.grid.major.y = element_line(color      = "grey80", 
+                                              linewidth  = 0.5, 
+                                              linetype   = "dashed"),
+    plot.caption= element_text(hjust = 0.01, 
+                               size = 9,
+                               margin=margin(t=0)))
+    
+#Final 
+perc_income <- df %>%
+  count(ses, harmful) %>% # Count occurrences of each harmful level grouped by ses
+  ggplot(aes(x = harmful, y = n, fill = ses)) + 
+  geom_col(position = "dodge") +    
+  theme_minimal() +
+  coord_flip() +
+  labs(
+    y = "Count",
+    title = "Perceptions of cigarette harm by income level", 
+    caption = 'Source: Population Assessment of Tobacco and Health \n“DS6002 Wave 6: Youth / Parent Questionnaire Data” ') + 
+   guides(fill = guide_legend(title = NULL)) + 
+   geom_text(aes(label = n), 
+            position = position_dodge(width = 0.9), 
+            vjust = .5, hjust= -.3, size = 3.5) +  
+  scale_fill_brewer(palette = "Dark2", na.value = "grey") +
+    theme(plot.title= element_markdown(margin = margin(b=5),hjust=0, size = 16, face ='bold'),
+    panel.background = element_rect(fill='white',colour='white'),
+    axis.ticks= element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major.y = element_line(color      = "grey80", 
+                                              linewidth  = 0.5, 
+                                              linetype   = "dashed"),
+    plot.caption= element_text(hjust = 0.01, 
+                               size = 9,
+                               margin=margin(t=0)))
+  
 
-# df %>% 
-#   ggplot(aes(x=addict, fill=addict))+
-#   geom_bar()+
-#   theme_minimal()+
-#   labs(x= "Likeliness of Someone Becoming Addicted to Cigarettes", y="Count", fill="Belief")+
-#   theme(text = element_text(size = 20))
+    
+#Perceived likelihood of cigarette addiction
+#Iteration 1.c
+df %>%
+  ggplot(aes(x=addict, fill=addict))+
+  geom_bar()
 
+#Iteration 2.c
+df_smokers %>%
+  count(addict) %>%
+  mutate(
+    percent = n / sum(n) * 100,  
+    label_pos = cumsum(percent) - percent / 2) %>%
+  ggplot(aes(x = "", y = percent, fill = addict)) +
+  geom_bar(stat = "identity", width = 1) + 
+  coord_polar("y", start = 0) 
 
-smoke_like_circle <- df_smokers %>%
+#Final Iteration 
+cig_addic <-df_smokers %>%
   count(addict) %>%
   mutate(
     percent = n / sum(n) * 100,  
@@ -330,18 +438,43 @@ smoke_like_circle <- df_smokers %>%
   ggplot(aes(x = "", y = percent, fill = addict)) +
   geom_bar(stat = "identity", width = 1) + 
   coord_polar("y", start = 0) +
-  geom_text(aes(label = ifelse(percent > 5, paste0(round(percent, 1), "%"), "")),
+  geom_text(aes(label = ifelse(percent > 4, paste0(round(percent, 1), "%"), "")),
     position = position_stack(vjust = 0.5),
     size = 5,
     color = "white" ) +
-  labs(title = "Nearly 50% of participants report the likeliness of becoming addicted \nto cigarettes as very likely",
-    caption = 'Source: Population Assessment of Tobacco and Health, “DS6002 Wave 6: Youth / Parent Questionnaire Data” ') +
+  labs(title = "Perceived likelihood of cigarette addiction",
+       subtitle = "Nearly 50% of participants report someone is very likely to become addicted to cigarettes",
+    caption = 'Source: Population Assessment of Tobacco and Health,\n“DS6002 Wave 6: Youth / Parent Questionnaire Data” ') +
   theme_void() +
   theme(
     legend.title = element_blank()) + 
-   scale_fill_brewer(palette="Dark2")
-
-
+   scale_fill_brewer(palette = "Dark2", na.value = "grey")+ 
+      theme(plot.title= element_markdown(hjust=0, size = 16, face ='bold'),
+        plot.subtitle = element_markdown(margin= margin (b= 5), hjust= 0, size= 12, face ='italic'),
+    panel.background = element_rect(fill='white',colour='white'),
+    plot.caption= element_text(hjust = 0.01, 
+                               size = 9,
+                               margin=margin(t=0))) + 
+      annotate('text',
+             x        = 1.54,
+             y        = 1,
+             hjust    = .1,
+             vjust    = 0,
+             label    = '0.8%',
+             size     = 5,
+             color    = 'black') + 
+        annotate('text',
+             x        = 1.57,
+             y        = 97,
+             hjust    = .1,
+             vjust    = 0,
+             label    = '3.2%',
+             size     = 5,
+             color    = 'black') + 
+    annotate("segment", x = 1.5, y = 98, xend = 1.50, yend=98.2,
+         arrow = arrow(type = "closed", length = unit(0.005, "npc")))+ 
+      annotate("segment", x = 1.53, y = 2, xend = 1.50, yend=.8,
+         arrow = arrow(type = "closed", length = unit(0.005, "npc")))
 
 ```
 
@@ -497,6 +630,5 @@ m10 <- lm(num_cigs~smoker+age+sex+race+ses,
 summary(m10)
 ```
 
-```{r}
 
-```
+
