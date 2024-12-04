@@ -109,6 +109,8 @@ df <- df %>%
 
 df_smokers <- df %>% 
   filter(smoker != "NA")
+
+#This looks like a lot of labor but it looks good and super clear. Well done!
 ```
 
 ```{r}
@@ -148,6 +150,12 @@ smoker_demographic_table <- df_smokers %>%
   mutate(Percentage = (Count / total) * 100)
 smoker_demographic_table
 
+#You may want to consider rounding your results for clarity purposes, as it seems a bit complex.
+#We used the following code - it's super easy fix. 
+smoker_demographic_table$Percentage <- round(smoker_demographic_table$Percentage, 2)
+
+#You can follow this in the next data sets too.
+
 #prob table for perception 
 table_harmful <- df %>% 
   group_by(harmful) %>% 
@@ -155,11 +163,16 @@ table_harmful <- df %>%
   mutate(prop = count / sum(count)) 
 table_harmful
 
+#Some more here, but since you have a very, very small number, may round to more digits like 4.
+table_harmful$prop <- round(table_harmful$prop, 4)
+
 table_harmful_smokers <- df_smokers %>% 
   group_by(harmful) %>% 
   summarise(count = n()) %>% 
   mutate(prop = count / sum(count)) 
 table_harmful_smokers
+
+table_harmful_smokers$prop <- round(table_harmful_smokers$prop, 4)
 
 
 #prob table for perception by age
@@ -175,6 +188,20 @@ table_harmful_by_age_smokers <- df_smokers %>%
   mutate(prop = count / sum(count))
 table_harmful_by_age_smokers
 
+#Will be nice to add some visualizations here. Can check the following bar chart.
+
+ggplot(table_harmful_by_age, aes(x = harmful, y = count, fill = age)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  facet_wrap(~age) +
+  labs(
+    title = "Perception of Harmfulness by Age",
+    x = "Harmfulness",
+    y = "Count"
+  )
+
+#You can play with the data set to exclude the NA value, change the name of the variables back to 1 to 5, etc. 
+
 #smoker status by age
 #not sure about this one, doesn't change if I use df_smokers / remove filter line of code
 table_smoker_age <- df %>% 
@@ -183,5 +210,5 @@ table_smoker_age <- df %>%
   pivot_wider(names_from = age, values_from = n, values_fill = 0)
 table_smoker_age
 
-
+#Might be good to create a new data set about the perception of smoking based on race, gender, and SES. 
 ```
