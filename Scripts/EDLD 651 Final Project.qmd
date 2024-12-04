@@ -1,17 +1,21 @@
 ---
 title: "EDLD 651 Final Project"
 format: html
+html:
+  code-fold: True
 editor: visual
 ---
 
 ```{r}
 #install.packages("labelled")
+#install.packages("kableExtra")
 library(tidyverse)
 library(here)
 library(rio)
 library(knitr)
 library(labelled)
 library(RColorBrewer)
+library(kableExtra)
 
 df<- import(here("Data/36498-6002-Data.rda"))%>% 
   select(R06_YC9050, R06_YC1124, R06_YC9022, R06_YC1022, R06R_Y_AGECAT2,R06R_Y_SEX, R06R_Y_HISP, R06R_Y_RACECAT3, R06R_Y_PM0130) %>% 
@@ -133,6 +137,38 @@ demographic_table <- df %>%
   mutate(Percentage = (Count / total) * 100)
 demographic_table
 
+plot_1 <- ggplot(demographic_table, aes(x = Demographic, y = Percentage, fill = Demographic)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  coord_flip() +  
+  theme_minimal() +
+  labs(title = "Demographic Distribution", x = "Demographic Group", y = "Percentage") +
+  scale_fill_brewer(palette = "Set3") +  
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+plot_1
+
+demographic_table_cleaned <- demographic_table %>%
+  select(-total) %>%
+  mutate(
+    Percentage = round(Percentage, 2), 
+    Demographic = case_when(
+      Demographic == "Age_12_14" ~ "Ages 12-14",
+      Demographic == "Age_15_17" ~ "Ages 15-17",
+      Demographic == "Male" ~ "Male",
+      Demographic == "Female" ~ "Female",
+      Demographic == "Hispanic" ~ "Hispanic",
+      Demographic == "Not_Hispanic" ~ "Not Hispanic",
+      Demographic == "White" ~ "White",
+      Demographic == "Black" ~ "Black",
+      Demographic == "Other" ~ "Other",
+      TRUE ~ Demographic))
+
+kable_table_total <- demographic_table_cleaned %>%
+  kbl(caption = "Demographic Distribution of Participants", align = "c") %>%
+  kable_styling(
+    full_width = FALSE,
+    bootstrap_options = c("striped", "hover", "condensed"))
+kable_table_total
+
 smoker_demographic_table <- df_smokers %>% 
   summarise(
     total = n(),
@@ -148,6 +184,36 @@ smoker_demographic_table <- df_smokers %>%
   pivot_longer(cols = -total, names_to = "Demographic", values_to = "Count") %>% 
   mutate(Percentage = (Count / total) * 100)
 smoker_demographic_table
+
+smoker_demographic_table_cleaned <- smoker_demographic_table %>%
+  select(-total) %>%
+  mutate(Percentage = round(Percentage, 2),
+      Demographic = case_when(
+      Demographic == "Age_12_14" ~ "Ages 12-14",
+      Demographic == "Age_15_17" ~ "Ages 15-17",
+      Demographic == "Male" ~ "Male",
+      Demographic == "Female" ~ "Female",
+      Demographic == "Hispanic" ~ "Hispanic",
+      Demographic == "Not_Hispanic" ~ "Not Hispanic",
+      Demographic == "White" ~ "White",
+      Demographic == "Black" ~ "Black",
+      Demographic == "Other" ~ "Other",
+      TRUE ~ Demographic))
+kable_table_smokers <- smoker_demographic_table_cleaned %>%
+  kbl(caption = "Smoker Demographic Distribution", align = "c") %>%
+  kable_styling(
+    full_width = FALSE,
+    bootstrap_options = c("striped", "hover", "condensed"))
+kable_table_smokers
+
+plot_2 <- ggplot(smoker_demographic_table, aes(x = Demographic, y = Percentage, fill = Demographic)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  coord_flip() +  
+  theme_minimal() +
+  labs(title = "Smoker Demographic Distribution", x = "Demographic Group", y = "Percentage") +
+  scale_fill_brewer(palette = "Set3") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+plot_2
 
 #prob table for perception 
 table_harmful <- df %>% 
@@ -354,7 +420,16 @@ m5 <- lm(num_cigs~smoker+age+sex+race+ses,
    data=df_smokers,
    na.action = na.omit)
 
-summary(m5)
+modelsummary(m5,stars = T, fmt = 2,
+             coef_rename = c("smokerNo" = "Non-Smoker",
+                             "age15-17" = "Age 15-17",
+                             "sexFemale" = "Female",
+                             "raceBlack alone" = "Black",
+                             "raceOther" = "Other Racial Identity"),
+             gof_omit = "Adj.|AIC|BIC|RMSE|Log",
+             title = "Associations between Smoker Status,
+             Demographic Variables, and Num. of Cigs",
+             output = "EDLD651_model5_table.jpg")
 
 # After adjusting for age, sex, race, and SES, on average in the pop., identifying as a non-smoker is significantly (p < .001) associated with consuming 12.5 fewer cigarettes per [unit of time]
 ```
@@ -422,8 +497,6 @@ m10 <- lm(num_cigs~smoker+age+sex+race+ses,
 summary(m10)
 ```
 
-
 ```{r}
 
 ```
-
