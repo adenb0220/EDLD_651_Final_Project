@@ -313,8 +313,8 @@ cons_age <-df_smokers %>%
     x = "Age Group",
     y = "Average Number of Cigarettes Smoked in Past 30 Days",
     fill = "Smoker \n Status",
-    title = "Cigarette Consumption by Age Group and Smoker Status", 
-    subtitle = 'Non smokers age 12-14 average 1 cigarette per month, while non-smokers age 15-17 average 2.45 cigarettes per month',
+    title = "Avergae Days Smoked by Age Group and Smoker Status", 
+    subtitle = 'Non smokers age 12-14 averaged 1 day smoking per month, while non-smokers age 15-17 averaged 2.45 days per month',
     caption = 'Source: Population Assessment of Tobacco and Health,
     “DS6002 Wave 6: Youth / Parent Questionnaire Data” ') +
  scale_fill_brewer(palette="Dark2")  +
@@ -630,6 +630,3 @@ m10 <- lm(num_cigs~smoker+age+sex+race+ses,
 
 summary(m10)
 ```
-
-
-
