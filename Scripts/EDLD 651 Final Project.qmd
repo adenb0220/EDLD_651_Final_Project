@@ -713,4 +713,41 @@ m9 <- lm(num_cigs~addict+age+sex+race+ses,
 
 #modelsummary(m9,stars = T, fmt = 2,
 #             gof_omit = "Adj.|AIC|BIC|RMSE|Log")
+
 ```
+ Can someone create tables that group_by(smoker) to show gender/SES/race/sex breakdown by smoking status? Tentatively, just from using table() function, it looks like the highest proportion of smokers are in the 25k-49,999 SES group.
+
+```{r}
+
+df_smokers %>%
+  select(sex, smoker) %>%
+  group_by(smoker) %>%
+  count(sex) %>%
+  mutate(proportion = n / sum(n)) %>%
+  select(smoker, sex, proportion) %>%
+  kable()
+
+chisq.test(x= df_smokers$sex, y= df_smokers$smoker)
+
+df_smokers %>%
+  select(race, smoker) %>%
+  group_by(smoker) %>%
+  count(race) %>%
+  mutate(proportion = n / sum(n)) %>%
+  select(smoker, race, proportion) %>%
+  kable()
+
+chisq.test(x= df_smokers$race, y= df_smokers$smoker)
+
+
+df_smokers %>%
+  select(ses, smoker) %>%
+  group_by(smoker) %>%
+  count(ses) %>%
+  mutate(proportion = n / sum(n)) %>%
+  select(smoker, ses, proportion) %>%
+  kable()
+
+chisq.test(df_smokers$ses, df_smokers$smoker)
+```
+
