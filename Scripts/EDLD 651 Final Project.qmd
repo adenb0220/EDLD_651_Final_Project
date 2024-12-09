@@ -4,11 +4,21 @@ format: html
 execute: 
   echo: false
 editor: visual
+bibliography: references.bib
+link-citations: true
 ---
 
+651 Final Project 
+
+::: {.panel-tabset}
+
+## Paper 
+### Paper will all go here 
+Participants:
+This study conducted secondary analysis of data from the Population Assessment of Tobacco and Health (PATH) Study. The PATH Study is a longitudinal, multiwave study – facilitated by agencies including the US Department of Health and Human Services (USDHHS), the National Institute on Drug Abuse (NIDA), the National Institutes of Health (NIH), the Center for Tobacco Products (CTP), and the Food and Drug Administration (FDA) – that focuses on attitudes toward tobacco and tobacco use behaviors among adolescents aged 12-17 @PATH. Specifically, our team analyzed data from the most recent publicly available data, which comprises youth and parent questionnaire responses collected in 2021. Given that our research questions centered on the associations between youth beliefs about tobacco and smoker identity, as well as self-reported cigarette use, responses were filtered to include only participants who responded – affirmatively or negatively – to the survey question “Do you consider yourself a smoker?”
+
+## Code 
 ```{r}
-#install.packages("labelled")
-#install.packages("kableExtra")
 library(tidyverse)
 library(here)
 library(rio)
@@ -715,7 +725,8 @@ m9 <- lm(num_cigs~addict+age+sex+race+ses,
 #             gof_omit = "Adj.|AIC|BIC|RMSE|Log")
 
 ```
- Can someone create tables that group_by(smoker) to show gender/SES/race/sex breakdown by smoking status? Tentatively, just from using table() function, it looks like the highest proportion of smokers are in the 25k-49,999 SES group.
+
+Can someone create tables that group_by(smoker) to show gender/SES/race/sex breakdown by smoking status? Tentatively, just from using table() function, it looks like the highest proportion of smokers are in the 25k-49,999 SES group.
 
 ```{r}
 
@@ -751,3 +762,4 @@ df_smokers %>%
 #chisq.test(df_smokers$ses, df_smokers$smoker)
 ```
 
+:::
