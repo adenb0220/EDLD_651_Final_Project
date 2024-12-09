@@ -1,8 +1,8 @@
 ---
 title: "EDLD 651 Final Project"
 format: html
-html:
-  code-fold: True
+execute: 
+  echo: false
 editor: visual
 ---
 
@@ -492,14 +492,33 @@ m1 <- glm(smoker~harmful+age+sex+race+ses,
 
 
 
-modelsummary(m1, fmt = 2,
-             exponentiate = TRUE,
-             statistic = "conf.int",
-             stars = TRUE,
-             coef_omit = "(Intercept)",
-             gof_omit = "AIC|BIC|Log.Lik|RMSE")
+# modelsummary(m1, fmt = 2,
+#             exponentiate = TRUE,
+#             statistic = "conf.int",
+#             stars = TRUE,
+#             coef_omit = "(Intercept)",
+#             gof_omit = "AIC|BIC|Log.Lik|RMSE")
 
-summary(m1)
+m1_coef <- summary(m1)$coefficients
+
+library(janitor)
+m1_coef <- m1_coef %>% clean_names()
+m1_coef[,1] <- exp(m1_coef[,1])
+m1_coef[,1] <- round((m1_coef[,1]),2)
+m1_coef[,c(2,3,4)] <- round((m1_coef[,c(2,3,4)]),2)
+colnames(m1_coef)[4] <- "p_value"
+rownames(m1_coef)[1] <- "Intercept"
+rownames(m1_coef)[c(2,3,4,5)] <- c("Slightly Harmful","Somewhat Harmful",
+                                "Very Harmful", "Extremely Harmful")
+rownames(m1_coef)[c(6,7,8,9)] <- c("Age 15-17","Female","Black",
+                                   "Other Racial Identity")
+rownames(m1_coef)[c(10,11,12,13)] <- c("$10,000-24,999",
+                                       "$25,000-49,999",
+                                       "$50,000-99,999",
+                                       "Over $100,000")
+
+## TABLE 3 ##
+kable(m1_coef)
 
 # no significant predictors; perceived harmfulness of cigs is not associated (pos or neg) w smoker status
 
@@ -509,14 +528,32 @@ m2 <- glm(smoker~addict+age+sex+race+ses,
           data = df_smokers,
           family = binomial(link = "logit"))
 
-modelsummary(m2, fmt = 2,
-             exponentiate = TRUE,
-             statistic = "conf.int",
-             stars = TRUE,
-             coef_omit = "(Intercept)",
-             gof_omit = "AIC|BIC|Log.Lik|RMSE")
+#modelsummary(m2, fmt = 2,
+#             exponentiate = TRUE,
+#             statistic = "conf.int",
+#             stars = TRUE,
+#             coef_omit = "(Intercept)",
+#             gof_omit = "AIC|BIC|Log.Lik|RMSE")
 
-summary(m2)
+m2_coef <- summary(m2)$coefficients
+m2_coef <- m2_coef %>% clean_names()
+m2_coef[,1] <- exp(m2_coef[,1])
+m2_coef[,c(1,2,3,4)] <- round((m2_coef[,c(1,2,3,4)]),2)
+colnames(m2_coef)[4] <- "p_value"
+rownames(m2_coef)[1] <- "Intercept"
+rownames(m2_coef)[c(2,3,4,5)] <- c("Somewhat Unlikely",
+                                   "Neither Likely nor Unlikely",
+                                "Somewhat Likely", "Very Likely")
+rownames(m2_coef)[c(6,7,8,9)] <- c("Age 15-17","Female","Black",
+                                   "Other Racial Identity")
+rownames(m2_coef)[c(10,11,12,13)] <- c("$10,000-24,999",
+                                       "$25,000-49,999",
+                                       "$50,000-99,999",
+                                       "Over $100,000")
+
+## TABLE 4 ##
+kable(m2_coef)
+
 
 # same, no significant predictors...beliefs about likelihood of addiction are not associated w smoker status
 
@@ -526,23 +563,58 @@ m3 <- lm(num_cigs~harmful+age+sex+race+ses,
    data=df_smokers,
    na.action = na.omit)
 
-modelsummary(m3,stars = T, fmt = 2,
-             gof_omit = "Adj.|AIC|BIC|RMSE|Log")
+#modelsummary(m3,stars = T, fmt = 2,
+#             gof_omit = "Adj.|AIC|BIC|RMSE|Log")
 
-summary(m3)
+m3_coef <- summary(m3)$coefficients
+m3_coef <- m3_coef %>% clean_names()
+m3_coef[,c(1,2,3,4)] <- round((m3_coef[,c(1,2,3,4)]),2)
+colnames(m3_coef)[4] <- "p_value"
+rownames(m3_coef)[1] <- "Intercept"
+rownames(m3_coef)[c(2,3,4,5)] <- c("Slightly Harmful","Somewhat Harmful",
+                                "Very Harmful", "Extremely Harmful")
+rownames(m3_coef)[c(6,7,8,9)] <- c("Age 15-17","Female","Black",
+                                   "Other Racial Identity")
+rownames(m3_coef)[c(10,11,12,13)] <- c("$10,000-24,999",
+                                       "$25,000-49,999",
+                                       "$50,000-99,999",
+                                       "Over $100,000")
+
+## TABLE 5 ##
+
+kable(m3_coef)
+
 
 # one significant predictor, ON AVG IN THE POPULATION ppl in SES 25-49.999k smoked 8.37 more cigs
 
-# las model, addict as predictor of num. cigs
+# last model, addict as predictor of num. cigs
 
 m4 <- lm(num_cigs~addict+age+sex+race+ses,
    data=df_smokers,
    na.action = na.omit)
 
-modelsummary(m4,stars = T, fmt = 2,
-             gof_omit = "Adj.|AIC|BIC|RMSE|Log")
+#modelsummary(m4,stars = T, fmt = 2,
+#             gof_omit = "Adj.|AIC|BIC|RMSE|Log")
 
-summary(m4)
+m4_coef <- summary(m4)$coefficients
+m4_coef <- m4_coef %>% clean_names()
+m4_coef[,c(1,2,3,4)] <- round((m4_coef[,c(1,2,3,4)]),2)
+colnames(m4_coef)[4] <- "p_value"
+rownames(m4_coef)[1] <- "Intercept"
+rownames(m4_coef)[c(2,3,4)] <- c("Neither Likely nor Unlikely",
+                                "Somewhat Likely", "Very Likely")
+rownames(m4_coef)[c(5,6,7,8)] <- c("Age 15-17","Female","Black",
+                                   "Other Racial Identity")
+rownames(m4_coef)[c(9,10,11,12)] <- c("$10,000-24,999",
+                                       "$25,000-49,999",
+                                       "$50,000-99,999",
+                                       "Over $100,000")
+
+## TABLE 6 ##
+
+kable(m4_coef)
+
+
 
 # intercept (which is "very unlikely to get addicted") had a p < .1; again, ses 25-49.999k was significantly associated w smoking 8.5 more cigs
 
@@ -554,16 +626,34 @@ m5 <- lm(num_cigs~smoker+age+sex+race+ses,
    data=df_smokers,
    na.action = na.omit)
 
-modelsummary(m5,stars = T, fmt = 2,
-             coef_rename = c("smokerNo" = "Non-Smoker",
-                             "age15-17" = "Age 15-17",
-                             "sexFemale" = "Female",
-                             "raceBlack alone" = "Black",
-                             "raceOther" = "Other Racial Identity"),
-             gof_omit = "Adj.|AIC|BIC|RMSE|Log",
-             title = "Associations between Smoker Status,
-             Demographic Variables, and Num. of Cigs",
-             output = "EDLD651_model5_table.jpg")
+#modelsummary(m5,stars = T, fmt = 2,
+#             coef_rename = c("smokerNo" = "Non-Smoker",
+#                             "age15-17" = "Age 15-17",
+#                             "sexFemale" = "Female",
+#                             "raceBlack alone" = "Black",
+#                             "raceOther" = "Other Racial Identity"),
+#             gof_omit = "Adj.|AIC|BIC|RMSE|Log",
+#             title = "Associations between Smoker Status,
+#             Demographic Variables, and Num. of Cigs")
+
+m5_coef <- summary(m5)$coefficients
+m5_coef <- m5_coef %>% clean_names()
+m5_coef[,c(1,2,3,4)] <- round((m5_coef[,c(1,2,3,4)]),2)
+colnames(m5_coef)[4] <- "p_value"
+rownames(m5_coef)[1] <- "Intercept"
+rownames(m5_coef)[c(2,3,4,5,6)] <- c("Non-Smoker","Age 15-17",
+                                     "Female","Black",
+                                   "Other Racial Identity")
+rownames(m5_coef)[c(7,8,9,10)] <- c("$10,000-24,999",
+                                       "$25,000-49,999",
+                                       "$50,000-99,999",
+                                       "Over $100,000")
+
+## TABLE 7 ##
+
+kable(m5_coef)
+
+
 
 # After adjusting for age, sex, race, and SES, on average in the pop., identifying as a non-smoker is significantly (p < .001) associated with consuming 12.5 fewer cigarettes per [unit of time]
 ```
@@ -592,41 +682,72 @@ m6 <- glm(smoker~harmful+age+sex+race+ses,
           data = df_smokers_dichotomous,
           family = binomial(link = "logit"))
 
-modelsummary(m6, fmt = 2,
-             exponentiate = TRUE,
-             statistic = "conf.int",
-             stars = TRUE,
-             coef_omit = "(Intercept)",
-             gof_omit = "AIC|BIC|Log.Lik|RMSE")
+#modelsummary(m6, fmt = 2,
+#             exponentiate = TRUE,
+#             statistic = "conf.int",
+#             stars = TRUE,
+#             coef_omit = "(Intercept)",
+#             gof_omit = "AIC|BIC|Log.Lik|RMSE")
 
 m7 <- glm(smoker~addict+age+sex+race+ses,
           data = df_smokers_dichotomous,
           family = binomial(link = "logit"))
 
-modelsummary(m7, fmt = 2,
-             exponentiate = TRUE,
-             statistic = "conf.int",
-             stars = TRUE,
-             coef_omit = "(Intercept)",
-             gof_omit = "AIC|BIC|Log.Lik|RMSE")
+#modelsummary(m7, fmt = 2,
+#             exponentiate = TRUE,
+#             statistic = "conf.int",
+#             stars = TRUE,
+#             coef_omit = "(Intercept)",
+#             gof_omit = "AIC|BIC|Log.Lik|RMSE")
 
 m8 <- lm(num_cigs~harmful+age+sex+race+ses,
    data=df_smokers_dichotomous,
    na.action = na.omit)
 
-modelsummary(m8,stars = T, fmt = 2,
-             gof_omit = "Adj.|AIC|BIC|RMSE|Log")
+#modelsummary(m8,stars = T, fmt = 2,
+#             gof_omit = "Adj.|AIC|BIC|RMSE|Log")
 
 m9 <- lm(num_cigs~addict+age+sex+race+ses,
    data=df_smokers_dichotomous,
    na.action = na.omit)
 
-modelsummary(m9,stars = T, fmt = 2,
-             gof_omit = "Adj.|AIC|BIC|RMSE|Log")
+#modelsummary(m9,stars = T, fmt = 2,
+#             gof_omit = "Adj.|AIC|BIC|RMSE|Log")
 
-m10 <- lm(num_cigs~smoker+age+sex+race+ses,
-   data=df_smokers_dichotomous,
-   na.action = na.omit)
-
-summary(m10)
 ```
+ Can someone create tables that group_by(smoker) to show gender/SES/race/sex breakdown by smoking status? Tentatively, just from using table() function, it looks like the highest proportion of smokers are in the 25k-49,999 SES group.
+
+```{r}
+
+df_smokers %>%
+  select(sex, smoker) %>%
+  group_by(smoker) %>%
+  count(sex) %>%
+  mutate(proportion = n / sum(n)) %>%
+  select(smoker, sex, proportion) %>%
+  kable()
+
+#chisq.test(x= df_smokers$sex, y= df_smokers$smoker)
+
+df_smokers %>%
+  select(race, smoker) %>%
+  group_by(smoker) %>%
+  count(race) %>%
+  mutate(proportion = n / sum(n)) %>%
+  select(smoker, race, proportion) %>%
+  kable()
+
+#chisq.test(x= df_smokers$race, y= df_smokers$smoker)
+
+
+df_smokers %>%
+  select(ses, smoker) %>%
+  group_by(smoker) %>%
+  count(ses) %>%
+  mutate(proportion = n / sum(n)) %>%
+  select(smoker, ses, proportion) %>%
+  kable()
+
+#chisq.test(df_smokers$ses, df_smokers$smoker)
+```
+
