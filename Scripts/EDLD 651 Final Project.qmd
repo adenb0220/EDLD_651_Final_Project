@@ -289,7 +289,7 @@ df_smokers %>%
   geom_col() +
   theme_minimal()+
   theme(text = element_text(size = 24))+
-  labs(x="Identifies as Smoker", y="Number of Cigarettes Smoked in Past 30 Days", fill="Smoker")
+  labs(x="Identifies as Smoker", y="Number of Days Smoked Cigs in Past 30 Days", fill="Smoker")
 
 #Iteration 3.a
 df_smokers %>%
@@ -303,7 +303,7 @@ df_smokers %>%
   theme_minimal() +
   labs(
     x = "Age Group",
-    y = "Average Number of Cigarettes Smoked in Past 30 Days",
+    y = "Average Number of Days Smoked Cigs in Past 30 Days",
     fill = "Smoker \n Status",
     title = "Cigarette Consumption by Age Group and Smoker Status", 
     caption = 'Source: Population Assessment of Tobacco and Health,
@@ -321,7 +321,7 @@ cons_age <-df_smokers %>%
             vjust = -0.5, size = 3) +
   labs(
     x = "Age Group",
-    y = "Average Number of Cigarettes Smoked in Past 30 Days",
+    y = "Average Number of Days Smoked Cigs in Past 30 Days",
     fill = "Smoker \n Status",
     title = "Avergae Days Smoked by Age Group and Smoker Status", 
     subtitle = 'Non smokers age 12-14 averaged 1 day smoking per month, while non-smokers age 15-17 averaged 2.45 days per month',
@@ -761,5 +761,8 @@ df_smokers %>%
 
 #chisq.test(df_smokers$ses, df_smokers$smoker)
 ```
+<<<<<<< Updated upstream
 
 :::
+=======
+>>>>>>> Stashed changes
