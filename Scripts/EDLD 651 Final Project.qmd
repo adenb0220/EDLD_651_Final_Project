@@ -727,7 +727,7 @@ df_smokers %>%
   select(smoker, sex, proportion) %>%
   kable()
 
-chisq.test(x= df_smokers$sex, y= df_smokers$smoker)
+#chisq.test(x= df_smokers$sex, y= df_smokers$smoker)
 
 df_smokers %>%
   select(race, smoker) %>%
@@ -737,7 +737,7 @@ df_smokers %>%
   select(smoker, race, proportion) %>%
   kable()
 
-chisq.test(x= df_smokers$race, y= df_smokers$smoker)
+#chisq.test(x= df_smokers$race, y= df_smokers$smoker)
 
 
 df_smokers %>%
@@ -748,6 +748,6 @@ df_smokers %>%
   select(smoker, ses, proportion) %>%
   kable()
 
-chisq.test(df_smokers$ses, df_smokers$smoker)
+#chisq.test(df_smokers$ses, df_smokers$smoker)
 ```
 
