@@ -6,6 +6,8 @@ execute:
 editor: visual
 bibliography: references.bib
 link-citations: true
+embed-resources: true
+
 ---
 
 651 Final Project 
@@ -13,12 +15,81 @@ link-citations: true
 ::: {.panel-tabset}
 
 ## Paper 
-### Paper will all go here 
-Participants:
-This study conducted secondary analysis of data from the Population Assessment of Tobacco and Health (PATH) Study. The PATH Study is a longitudinal, multiwave study – facilitated by agencies including the US Department of Health and Human Services (USDHHS), the National Institute on Drug Abuse (NIDA), the National Institutes of Health (NIH), the Center for Tobacco Products (CTP), and the Food and Drug Administration (FDA) – that focuses on attitudes toward tobacco and tobacco use behaviors among adolescents aged 12-17 @PATH. Specifically, our team analyzed data from the most recent publicly available data, which comprises youth and parent questionnaire responses collected in 2021. Given that our research questions centered on the associations between youth beliefs about tobacco and smoker identity, as well as self-reported cigarette use, responses were filtered to include only participants who responded – affirmatively or negatively – to the survey question “Do you consider yourself a smoker?”
+### The Population Assessment of Tobacco and Health (PATH): A Secondary Data Analysis 
+Aden Bhagwat, Maya Casper, Emily Mingus, Andrew Prior
+
+#### Introduction 
+  Adolescent tobacco use remains a critical public health concern, with significant implications for individual health, societal well-being, and policy structure and development. According to the CDC, it is estimated that 2.3% of adolescents 12-17 smoked in the past month [@CDC2019]. Additionally, more recent statistics have estimated that 5.9% of students currently use e-cigarettes accounting for 1.63 million adolescents [@CDC2014].  The Population Assessment of Tobacco and Health (PATH) Study was conducted by the National Institute on Drug Abuse (NIDA), the National Institutes of Health (NIH), the Center for Tobacco Products (CTP), and the Food and Drug Administration (FDA) represents a plethora of of data on tobacco-related attitudes and behaviors [@PATH]. This longitudinal study provides invaluable insights into how tobacco use patterns, attitudes, and exposure evolve over time. This is especially true among children and adolescents. 
+  
+  Since its inception in 2011, the PATH study has helped inform policy and other regulatory activities under the Family Smoking Prevention and Tobacco Control Act, which seeks to reduce tobacco use through evidence-based policies. This study recognizes the diverse forms of tobacco use including cigarettes, hookah, and smokeless tobacco and includes tobacco-related attitudes including perceived risks and social norms. It is because of this, the dataset has been instrumental in the creation of public health intervention and policy decisions. The study currently has six waves of data collection allowing for researchers to observe changes in perception in the United States as time goes on and with the introduction of new products. For the purposes of this study, the team utilized Wave 6 (2021), using the publicly available data from youth and parent questionnaire responses to dig deeper into adolescent smoking behaviors [@PATH].
+  
+  An increasing amount of literature underscores the multi-faceted factors influencing youth smoking. Specifically, qualitative studies emphasize the role of the smoker identity in shaping smoking behaviors including cessation efforts and coping mechanisms [@hertel2016; @tombor2015]. Smoker identity is characterized by the internalization of smoking as a core aspect of self and has been linked to higher smoking frequency and socially motivated smoking behaviors [@tombor2015]. Conversely, nonsmokers can benefit from a more favorable social standing and greater empathy towards smokers who struggle with addiction [@mccool2013].
+  
+  Despite these insights, there are remaining questions regarding the nuanced relationship between adolescents’ attitudes towards smoking, smoker identity, and smoking behaviors. Specifically, this study aims to answer the following research questions:
+  
+  1. What is the prevalence of adolescent smoking (ages 12-17) and how is it distributed across demographic factors including age, sex, race and socioeconomic status?
+  
+  2. How does smoker identity contribute to past 30-day smoking frequency among adolescents?
+  
+  3. How are attitudes toward the harmfulness and addictiveness of cigarettes associated with past 30-day smoking frequency among adolescents? 
+  
+By utilizing the robust PATH dataset, we hope to contribute to a deeper understanding of adolescent smoking behaviors to inform targeted interventions that address both psychological and social underlying mechanisms of youth tobacco use. 
+
+ 
+### Methods 
+
+#### Participants:
+This study conducted secondary analysis of data from the Population Assessment of Tobacco and Health (PATH) Study. The PATH Study is a longitudinal, multiwave study – facilitated by agencies including the US Department of Health and Human Services (USDHHS), the National Institute on Drug Abuse (NIDA), the National Institutes of Health (NIH), the Center for Tobacco Products (CTP), and the Food and Drug Administration (FDA) – that focuses on attitudes toward tobacco and tobacco use behaviors among adolescents aged 12-17 [@PATH]. Specifically, our team analyzed data from the most recent publicly available data, which comprises youth and parent questionnaire responses collected in 2021. Given that our research questions centered on the associations between youth beliefs about tobacco and smoker identity, as well as self-reported cigarette use, responses were filtered to include only participants who responded – affirmatively or negatively – to the survey question “Do you consider yourself a smoker?”
+
+#### Meaures:
+*Outcome Variables* 
+
+Our study posited two outcomes of interest as a potential function of youth tobacco attitudes; these variables were 1) smoker identity and 2) past-30-day cigarette use frequency. The former outcome was measured by the aforementioned question, “Do you consider yourself a smoker?”, and thus represented as a dichotomous, categorical variable. The latter was represented as a numerical variable and elicited in response to the question, “In the past 30 days, how many days did you use cigarettes?”
+
+*Attitudes Toward Tobacco*
+
+Two tobacco-related attitudes were operationalized as predictor variables: beliefs about the perceived harmfulness of cigarettes to health (“How harmful do you think cigarettes are to health?) and beliefs about the likelihood of someone becoming addicted to cigarettes (“How likely is someone to become addicted to cigarettes?”). In the parent study, responses to both items were measured via Likert-style scales scored from 1 (“Not at all harmful;” “Very unlikely”) to 5 (“Extremely harmful;” “Extremely likely”). In modeling relationships between these predictors and our outcomes of interest, we approached both tobacco-related attitudes as categorical variables rather than assuming numeric uniformity in the degree of difference between response levels.
+	
+*Covariate Controls*
+
+Prior research has indicated that 12th graders report significantly higher daily cigarette use versus 9th, 10th, and 11th graders; that boys report significantly higher daily cigarette use than girls; and that Latinx and White youth report significantly higher daily cigarette use than Black and Asian youth [@mejia2023]. Participants’ age, sex, and race were therefore operationalized as covariate controls. Robust evidence also links higher smoking prevalence to lower socioeconomic status (SES) and suggests that smokers of disadvantaged economic circumstances may incur greater tobacco-related harms [@hiscock2012]. SES was accordingly operationalized as an additional covariate control. The parent study measured age as a categorical variable with two levels: “12-14” and “15-17.” The parent study measured SES as a categorical variable with five levels corresponding to annual household income under $10,000, between $10,000 and $24,999, between $25,000 and $49,999, between $50,000 and $99,999, and over $100,000. Sex and race were measured as categorical variables as well.
+```{r}
+
+```
+
+### Analytic Strategy:
+#### Missing Data Handling:
+Within the parent study (n = 5,652), response rates for perceived harmfulness of cigarettes and perceived likelihood of addiction were 99.8% (n = 5,642) and 99.6% (n = 5,362), respectively. A substantially smaller proportion of respondents (n = 370), however, answered the survey question on smoker identity; this question was only asked of those who reported lifetime cigarette use. Rather than impute missing values, we created a subset of the original PATH data that included only affirmative or negative responses to this item. Further, within this subset of the data, only 58 observations featured responses for past-30-day frequency of cigarette use; this question was only asked of respondents who reported any past-30-day cigarette use. Again, no imputation of missing values was conducted.
+
+#### Analyses
+Logistic regression was used to model potential associations between the two tobacco attitude variables – beliefs about cigarette harmfulness and likelihood of addiction – and smoker identity. General linear regression was used to model potential associations between the two tobacco attitude variables and past-30-day tobacco use frequency. To account for the possibility that five levels of respondents’ perceived harmfulness of cigarettes and perceived likelihood of addiction might dilute between-group differences in effect size, these four models were subsequently re-run with a mutated dataset that collapsed both attitude variables into three levels: (“Not harmful”/”Not likely”; “Somewhat harmful”/”Neither likely nor unlikely”; “Harmful”/”Likely”). Last, a general linear regression was used to model the relationship between smoker identity and past-30-day frequency of cigarette use. All models controlled for age, sex, race, and SES.
+
+### Results
+Table 1 presents descriptive statistics of the full PATH study sample (n = 5,652). Table 2 presents descriptive statistics of the sample subset (n = 370) who responded affirmatively or negatively to the smoker identity question. Demographics were fairly consistent between those self-identified as smokers as compared to non-smokers for gender and race variables. However, there was a discrepancy for socioeconomic status, where the largest income group for non-smokers was $50,000 to $99,999 (28%), but for smokers was $25,000 to $49,999 (42%). 
+Coefficients for logistic regression models predicting smoker identity represent the odds ratio (OR): in this case, the odds of a participant self-identifying as a smoker relative to their odds of identifying as a non-smoker given the presence/absence of a particular variable. As illustrated by Table 3, no levels of participants’ perceived harmfulness of cigarettes (modeled as a five-dimensional factor) were significantly associated with their odds of self-identifying as a smoker. These null results were replicated by subsequent analyses that modeled perceived cigarette harmfulness as a three-dimensional factor. As illustrated by Table 4, no levels of participants’ perceived likelihood of cigarette addiction (modeled as a five-dimensional factor) were significantly associated with their odds of self-identifying as a smoker. These null results were replicated by subsequent analyses that modeled perceived likelihood of addiction as a three-dimensional factor.
+```{r}
+
+```
+
+As illustrated by Table 5, no levels of participants’ perceived harmfulness of cigarettes (modeled as a five-dimensional factor) were significantly associated with their self-reported past-30-day frequency of cigarette use. These null results were replicated by subsequent analyses that modeled perceived cigarette harmfulness as a three-dimensional factor. As illustrated by Table 6, no levels of participants’ perceived likelihood of cigarette addiction (modeled as a five-dimensional factor) were significantly associated with their self-reported past-30-day frequency of cigarette use. These null results were replicated by subsequent analyses that modeled perceived likelihood of addiction as a three-dimensional factor.
+Last, as illustrated by Table 7, participants’ smoker identity was significantly associated (p < 0.001) with their self-reported past-30-day frequency of cigarette use. On average in the study sample subset who either affirmed or denied smoker identity (n = 370), and while adjusting for age, sex, race, and SES, smoker identity was associated with 12.46 more days of cigarette use than non-smoker identity.
+
+### Dicussion
+  Contrary to our hypotheses, attitudes about cigarette harmfulness and addictiveness were not significantly related to participant cigarette use in the past 30 days. We had expected that participants who felt more strongly that cigarettes were more harmful and/or more addictive, would be less likely to have smoked cigarettes recently. Similarly, we anticipated that participants with attitudes of lower perceived harm and lower addictiveness, would have smoked more cigarettes in the past 30 days. There are a few reasons that we did not see these relationships. A potential data-related problem is the probability of ceiling effects. In our sample, the vast majority of participants indicated that smoking is ‘very harmful’ or ‘extremely harmful’ (93%), and that addiction is ‘somewhat likely’ or ‘very likely’ (90%). Additionally, only 43 participants positively identified themselves as smokers. These extreme values could have caused a ceiling effect where any trends were hidden by the high proportion of participants who believed smoking is harmful and addictive, and were not smokers themselves. Our small percentage of participants who smoke cigarettes may have also reduced the statistical power of the study. 
+  
+  Theoretically, there may truly be no difference in smoking habits between participants who believed cigarettes are harmful/addictive and those who did not. @murphy2001 found that an educational intervention changed behaviors for the heaviest drinking participants, but not for the sample as a whole. We may be seeing a similar effect, where knowledge of harm/addictiveness does not necessarily affect behaviors for most participants. In future research, it would be interesting to segment a larger sample of smokers into levels of smoking behavior, and see if attitudes or attitude changes play a larger role in predicting behaviors among this group. 
+  
+  One hypothesis that was supported was that participants who self-identified as smokers were more likely to have smoked cigarettes in the past 30 days. This was consistent with existing literature where the relationship between smoker identity and cigarette usage has been well explored. 
+  
+  These results highlight the importance of comprehensive multi-component interventions to reduce tobacco use among adolescents. The null findings in the associations between perceptions of harmfulness and potential for addiction and smoking status indicate that knowledge of the harms of tobacco use alone does little to deter smoking. Instead of relying solely on health education for prevention efforts, paired education and behavioral interventions will likely have a larger effect on smoking among this population.
+Future studies should continue to consider multi-component programming to prevent the initiation of smoking by adolescents. Future studies should also ensure that samples are representative of the general population- our sample may have included some bias, mainly that higher socioeconomic status (SES) families may have been overrepresented. The largest proportion of the sample (37%)  indicated a family income of over $100,000 a year, while the national median household income is closer to $80,000. This may be particularly relevant to our sample, as low SES has been correlated to increased cigarette use [@hiscock2012]. 
+
+
+
+
 
 ## Code 
-```{r}
+```{r, include=FALSE}
 library(tidyverse)
 library(here)
 library(rio)
@@ -40,19 +111,10 @@ df<- import(here("Data/36498-6002-Data.rda"))%>%
          race=R06R_Y_RACECAT3, 
          ses=R06R_Y_PM0130)
   
-  # mutate(harmful= as.numeric(harmful), addict=as.numeric(addict), age=as.numeric(age)) #COMMENTED OUT BECAUSE THESE AREN'T CONTINUOUS ANYWAY, NOT SURE IF NEED THEM AS NUMERIC 
-
-# df %>% 
-#   ggplot(aes(x=addict, fill=harmful))+
-#   geom_bar()
-
-# df %>% 
-  # ggplot(aes(x=num_cigs, fill=smoker))+
-  # geom_bar()
-#MADE THESE JUST TO DOUBLE CHECK THAT THE VARIABLES LOOK RIGHT 
+  # mutate(harmful= as.numeric(harmful), addict=as.numeric(addict), age=as.numeric(age)) 
 ```
 
-```{r}
+```{r, echo=FALSE}
 
 #| label: cleaning
 
@@ -146,7 +208,6 @@ demographic_table <- df %>%
     Other = sum(race == "Other", na.rm = TRUE)) %>% 
   pivot_longer(cols = -total, names_to = "Demographic", values_to = "Count") %>% 
   mutate(Percentage = (Count / total) * 100)
-demographic_table
 
 plot_1 <- ggplot(demographic_table, aes(x = Demographic, y = Percentage, fill = Demographic)) +
   geom_bar(stat = "identity", show.legend = FALSE) +
@@ -194,7 +255,7 @@ smoker_demographic_table <- df_smokers %>%
     Other = sum(race == "Other", na.rm = TRUE)) %>% 
   pivot_longer(cols = -total, names_to = "Demographic", values_to = "Count") %>% 
   mutate(Percentage = (Count / total) * 100)
-smoker_demographic_table
+
 
 smoker_demographic_table_cleaned <- smoker_demographic_table %>%
   select(-total) %>%
@@ -231,13 +292,13 @@ table_harmful <- df %>%
   group_by(harmful) %>% 
   summarise(count = n()) %>% 
   mutate(prop = count / sum(count)) 
-table_harmful
+
 
 table_harmful_smokers <- df_smokers %>% 
   group_by(harmful) %>% 
   summarise(count = n()) %>% 
   mutate(prop = count / sum(count)) 
-table_harmful_smokers
+
 
 
 #prob table for perception by age
@@ -245,26 +306,23 @@ table_harmful_by_age <- df %>%
   group_by(age, harmful) %>% 
   summarise(count = n(), .groups = "drop") %>% 
   mutate(prop = count / sum(count))
-table_harmful_by_age
+
 
 table_harmful_by_age_smokers <- df_smokers %>% 
   group_by(age, harmful) %>% 
   summarise(count = n(), .groups = "drop") %>% 
   mutate(prop = count / sum(count))
-table_harmful_by_age_smokers
+
 
 #smoker status by age
-#not sure about this one, doesn't change if I use df_smokers / remove filter line of code
 table_smoker_age <- df %>% 
   filter(!is.na(smoker)) %>% 
   count(smoker, age) %>% 
   pivot_wider(names_from = age, values_from = n, values_fill = 0)
-table_smoker_age
 
-## I think this table is correct. There are 370 obs in the smoker filter, which is not everyone who identified as a smoker but rather those who answered the question, yes OR no. The smoker demographic table is the demographics of everyone who answered; this table shows what the actual distribution of those answers was
 ```
 
-```{r}
+```{r, include=FALSE}
 #| label: visuals
 
 # df_smokers %>%
@@ -309,7 +367,10 @@ df_smokers %>%
     caption = 'Source: Population Assessment of Tobacco and Health,
     “DS6002 Wave 6: Youth / Parent Questionnaire Data” ') +
  scale_fill_brewer(palette="Dark2")
+```
 
+
+```{r, message=FALSE}
 # Final iteration 
 cons_age <-df_smokers %>%
   group_by(age, smoker) %>% 
@@ -339,8 +400,11 @@ cons_age <-df_smokers %>%
                                size = 9,
                                margin=margin(t=0)))
 
+cons_age
+```
 
 
+```{r, include=FALSE}
 # Perceptions of cigarette harm by income level
 #Iteration 1.b 
 df %>%
@@ -394,7 +458,10 @@ df %>%
     plot.caption= element_text(hjust = 0.01, 
                                size = 9,
                                margin=margin(t=0)))
-    
+```
+
+
+```{r, message=FALSE}
 #Final 
 perc_income <- df %>%
   count(ses, harmful) %>% # Count occurrences of each harmful level grouped by ses
@@ -421,9 +488,11 @@ perc_income <- df %>%
     plot.caption= element_text(hjust = 0.01, 
                                size = 9,
                                margin=margin(t=0)))
-  
+perc_income
+```
 
-    
+
+```{r, message=FALSE, include=FALSE}
 #Perceived likelihood of cigarette addiction
 #Iteration 1.c
 df %>%
@@ -438,8 +507,11 @@ df_smokers %>%
     label_pos = cumsum(percent) - percent / 2) %>%
   ggplot(aes(x = "", y = percent, fill = addict)) +
   geom_bar(stat = "identity", width = 1) + 
-  coord_polar("y", start = 0) 
+  coord_polar("y", start = 0)
+```
 
+
+```{r, message=FALSE}
 #Final Iteration 
 cig_addic <-df_smokers %>%
   count(addict) %>%
@@ -486,10 +558,10 @@ cig_addic <-df_smokers %>%
          arrow = arrow(type = "closed", length = unit(0.005, "npc")))+ 
       annotate("segment", x = 1.53, y = 2, xend = 1.50, yend=.8,
          arrow = arrow(type = "closed", length = unit(0.005, "npc")))
-
+cig_addic
 ```
 
-```{r}
+```{r, message=FALSE}
 #| label: regression models
 
 # harmful as predictor of smoker status
@@ -528,7 +600,7 @@ rownames(m1_coef)[c(10,11,12,13)] <- c("$10,000-24,999",
                                        "Over $100,000")
 
 ## TABLE 3 ##
-kable(m1_coef)
+table3 <- kable(m1_coef)
 
 # no significant predictors; perceived harmfulness of cigs is not associated (pos or neg) w smoker status
 
@@ -726,40 +798,38 @@ m9 <- lm(num_cigs~addict+age+sex+race+ses,
 
 ```
 
-Can someone create tables that group_by(smoker) to show gender/SES/race/sex breakdown by smoking status? Tentatively, just from using table() function, it looks like the highest proportion of smokers are in the 25k-49,999 SES group.
-
 ```{r}
 
-df_smokers %>%
-  select(sex, smoker) %>%
-  group_by(smoker) %>%
-  count(sex) %>%
-  mutate(proportion = n / sum(n)) %>%
-  select(smoker, sex, proportion) %>%
-  kable()
-
-#chisq.test(x= df_smokers$sex, y= df_smokers$smoker)
-
-df_smokers %>%
-  select(race, smoker) %>%
-  group_by(smoker) %>%
-  count(race) %>%
-  mutate(proportion = n / sum(n)) %>%
-  select(smoker, race, proportion) %>%
-  kable()
-
-#chisq.test(x= df_smokers$race, y= df_smokers$smoker)
-
-
-df_smokers %>%
-  select(ses, smoker) %>%
-  group_by(smoker) %>%
-  count(ses) %>%
-  mutate(proportion = n / sum(n)) %>%
-  select(smoker, ses, proportion) %>%
-  kable()
-
-#chisq.test(df_smokers$ses, df_smokers$smoker)
+# df_smokers %>%
+#   select(sex, smoker) %>%
+#   group_by(smoker) %>%
+#   count(sex) %>%
+#   mutate(proportion = n / sum(n)) %>%
+#   select(smoker, sex, proportion) %>%
+#   kable()
+# 
+# #chisq.test(x= df_smokers$sex, y= df_smokers$smoker)
+# 
+# df_smokers %>%
+#   select(race, smoker) %>%
+#   group_by(smoker) %>%
+#   count(race) %>%
+#   mutate(proportion = n / sum(n)) %>%
+#   select(smoker, race, proportion) %>%
+#   kable()
+# 
+# #chisq.test(x= df_smokers$race, y= df_smokers$smoker)
+# 
+# 
+# df_smokers %>%
+#   select(ses, smoker) %>%
+#   group_by(smoker) %>%
+#   count(ses) %>%
+#   mutate(proportion = n / sum(n)) %>%
+#   select(smoker, ses, proportion) %>%
+#   kable()
+# 
+# #chisq.test(df_smokers$ses, df_smokers$smoker)
 ```
 
 
