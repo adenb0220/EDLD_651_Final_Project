@@ -93,6 +93,14 @@ These results highlight the importance of comprehensive multi-component interven
 ## Code
 
 ```{r, include=FALSE}
+=======
+### Paper will all go here
+
+Participants: This study conducted secondary analysis of data from the Population Assessment of Tobacco and Health (PATH) Study. The PATH Study is a longitudinal, multiwave study – facilitated by agencies including the US Department of Health and Human Services (USDHHS), the National Institute on Drug Abuse (NIDA), the National Institutes of Health (NIH), the Center for Tobacco Products (CTP), and the Food and Drug Administration (FDA) – that focuses on attitudes toward tobacco and tobacco use behaviors among adolescents aged 12-17 @PATH. Specifically, our team analyzed data from the most recent publicly available data, which comprises youth and parent questionnaire responses collected in 2021. Given that our research questions centered on the associations between youth beliefs about tobacco and smoker identity, as well as self-reported cigarette use, responses were filtered to include only participants who responded – affirmatively or negatively – to the survey question “Do you consider yourself a smoker?”
+
+## Code
+
+>>>>>>> Stashed changes
 library(tidyverse)
 library(here)
 library(rio)
