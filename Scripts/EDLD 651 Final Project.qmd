@@ -761,8 +761,7 @@ df_smokers %>%
 
 #chisq.test(df_smokers$ses, df_smokers$smoker)
 ```
-<<<<<<< Updated upstream
+
 
 :::
-=======
->>>>>>> Stashed changes
+
