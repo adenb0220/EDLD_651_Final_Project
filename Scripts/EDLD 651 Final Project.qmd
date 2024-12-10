@@ -90,17 +90,10 @@ One hypothesis that was supported was that participants who self-identified as s
 
 These results highlight the importance of comprehensive multi-component interventions to reduce tobacco use among adolescents. The null findings in the associations between perceptions of harmfulness and potential for addiction and smoking status indicate that knowledge of the harms of tobacco use alone does little to deter smoking. Instead of relying solely on health education for prevention efforts, paired education and behavioral interventions will likely have a larger effect on smoking among this population. Future studies should continue to consider multi-component programming to prevent the initiation of smoking by adolescents. Future studies should also ensure that samples are representative of the general population- our sample may have included some bias, mainly that higher socioeconomic status (SES) families may have been overrepresented. The largest proportion of the sample (37%) indicated a family income of over \$100,000 a year, while the national median household income is closer to \$80,000. This may be particularly relevant to our sample, as low SES has been correlated to increased cigarette use [@hiscock2012].
 
-## Code
 
+## Code
 ```{r, include=FALSE}
-=======
-### Paper will all go here
 
-Participants: This study conducted secondary analysis of data from the Population Assessment of Tobacco and Health (PATH) Study. The PATH Study is a longitudinal, multiwave study – facilitated by agencies including the US Department of Health and Human Services (USDHHS), the National Institute on Drug Abuse (NIDA), the National Institutes of Health (NIH), the Center for Tobacco Products (CTP), and the Food and Drug Administration (FDA) – that focuses on attitudes toward tobacco and tobacco use behaviors among adolescents aged 12-17 @PATH. Specifically, our team analyzed data from the most recent publicly available data, which comprises youth and parent questionnaire responses collected in 2021. Given that our research questions centered on the associations between youth beliefs about tobacco and smoker identity, as well as self-reported cigarette use, responses were filtered to include only participants who responded – affirmatively or negatively – to the survey question “Do you consider yourself a smoker?”
-
-## Code
-
->>>>>>> Stashed changes
 library(tidyverse)
 library(here)
 library(rio)
@@ -123,6 +116,7 @@ df<- import(here("Data/36498-6002-Data.rda"))%>%
          ses=R06R_Y_PM0130)
   
   # mutate(harmful= as.numeric(harmful), addict=as.numeric(addict), age=as.numeric(age)) 
+
 ```
 
 ```{r, echo=FALSE}
