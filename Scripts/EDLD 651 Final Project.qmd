@@ -9,8 +9,6 @@ link-citations: true
 embed-resources: true
 ---
 
-651 Final Project
-
 ::: panel-tabset
 ## Paper
 
@@ -56,10 +54,6 @@ Two tobacco-related attitudes were operationalized as predictor variables: belie
 
 Prior research has indicated that 12th graders report significantly higher daily cigarette use versus 9th, 10th, and 11th graders; that boys report significantly higher daily cigarette use than girls; and that Latinx and White youth report significantly higher daily cigarette use than Black and Asian youth [@mejia2023]. Participants’ age, sex, and race were therefore operationalized as covariate controls. Robust evidence also links higher smoking prevalence to lower socioeconomic status (SES) and suggests that smokers of disadvantaged economic circumstances may incur greater tobacco-related harms [@hiscock2012]. SES was accordingly operationalized as an additional covariate control. The parent study measured age as a categorical variable with two levels: “12-14” and “15-17.” The parent study measured SES as a categorical variable with five levels corresponding to annual household income under \$10,000, between \$10,000 and \$24,999, between \$25,000 and \$49,999, between \$50,000 and \$99,999, and over \$100,000. Sex and race were measured as categorical variables as well.
 
-```{r}
-
-```
-
 ### Analytic Strategy:
 
 #### Missing Data Handling:
@@ -73,10 +67,6 @@ Logistic regression was used to model potential associations between the two tob
 ### Results
 
 Table 1 presents descriptive statistics of the full PATH study sample (n = 5,652). Table 2 presents descriptive statistics of the sample subset (n = 370) who responded affirmatively or negatively to the smoker identity question. Demographics were fairly consistent between those self-identified as smokers as compared to non-smokers for gender and race variables. However, there was a discrepancy for socioeconomic status, where the largest income group for non-smokers was \$50,000 to \$99,999 (28%), but for smokers was \$25,000 to \$49,999 (42%). Coefficients for logistic regression models predicting smoker identity represent the odds ratio (OR): in this case, the odds of a participant self-identifying as a smoker relative to their odds of identifying as a non-smoker given the presence/absence of a particular variable. As illustrated by Table 3, no levels of participants’ perceived harmfulness of cigarettes (modeled as a five-dimensional factor) were significantly associated with their odds of self-identifying as a smoker. These null results were replicated by subsequent analyses that modeled perceived cigarette harmfulness as a three-dimensional factor. As illustrated by Table 4, no levels of participants’ perceived likelihood of cigarette addiction (modeled as a five-dimensional factor) were significantly associated with their odds of self-identifying as a smoker. These null results were replicated by subsequent analyses that modeled perceived likelihood of addiction as a three-dimensional factor.
-
-```{r}
-
-```
 
 As illustrated by Table 5, no levels of participants’ perceived harmfulness of cigarettes (modeled as a five-dimensional factor) were significantly associated with their self-reported past-30-day frequency of cigarette use. These null results were replicated by subsequent analyses that modeled perceived cigarette harmfulness as a three-dimensional factor. As illustrated by Table 6, no levels of participants’ perceived likelihood of cigarette addiction (modeled as a five-dimensional factor) were significantly associated with their self-reported past-30-day frequency of cigarette use. These null results were replicated by subsequent analyses that modeled perceived likelihood of addiction as a three-dimensional factor. Last, as illustrated by Table 7, participants’ smoker identity was significantly associated (p \< 0.001) with their self-reported past-30-day frequency of cigarette use. On average in the study sample subset who either affirmed or denied smoker identity (n = 370), and while adjusting for age, sex, race, and SES, smoker identity was associated with 12.46 more days of cigarette use than non-smoker identity.
 
@@ -798,37 +788,4 @@ m9 <- lm(num_cigs~addict+age+sex+race+ses,
 
 ```
 
-```{r}
-
-# df_smokers %>%
-#   select(sex, smoker) %>%
-#   group_by(smoker) %>%
-#   count(sex) %>%
-#   mutate(proportion = n / sum(n)) %>%
-#   select(smoker, sex, proportion) %>%
-#   kable()
-# 
-# #chisq.test(x= df_smokers$sex, y= df_smokers$smoker)
-# 
-# df_smokers %>%
-#   select(race, smoker) %>%
-#   group_by(smoker) %>%
-#   count(race) %>%
-#   mutate(proportion = n / sum(n)) %>%
-#   select(smoker, race, proportion) %>%
-#   kable()
-# 
-# #chisq.test(x= df_smokers$race, y= df_smokers$smoker)
-# 
-# 
-# df_smokers %>%
-#   select(ses, smoker) %>%
-#   group_by(smoker) %>%
-#   count(ses) %>%
-#   mutate(proportion = n / sum(n)) %>%
-#   select(smoker, ses, proportion) %>%
-#   kable()
-# 
-# #chisq.test(df_smokers$ses, df_smokers$smoker)
-```
 :::
