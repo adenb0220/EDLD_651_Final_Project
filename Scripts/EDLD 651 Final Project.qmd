@@ -16,6 +16,9 @@ embed-resources: true
 
 Aden Bhagwat, Maya Casper, Emily Mingus, Andrew Prior
 
+#### Abstract
+The Population Assessment of Tobacco and Health (PATH) aims to investigate the important attitudes and behaviors of adolescents towards tobacco and nicotine-related substances. Prior research indicates that individual attitudes towards substances can affect substance use. We used this rich dataset to further look into research questions relating to smoker identification, beliefs about smoking cigarettes, and cigarette smoking behaviors in the past 30 days. While most results were null, we offer potential explanations including ceiling effects and lack of statistical power. We did find that identification as a smoker significantly predicts smoking behavior. Future research can seek to disrupt this smoker identification to decrease subsequent smoking behavior, as well as continue researching the effects of cigarette attitudes on smoking behavior. Future research should also ensure diverse datasets, representative by gender, race, and socioeconomic status, to fairly capture external factors relating to smoking behavior. 
+
 #### Introduction
 
 Adolescent tobacco use remains a critical public health concern, with significant implications for individual health, societal well-being, and policy structure and development. According to the CDC, it is estimated that 2.3% of adolescents 12-17 smoked in the past month [@CDC2019]. Additionally, more recent statistics have estimated that 5.9% of students currently use e-cigarettes accounting for 1.63 million adolescents [@CDC2014]. The Population Assessment of Tobacco and Health (PATH) Study was conducted by the National Institute on Drug Abuse (NIDA), the National Institutes of Health (NIH), the Center for Tobacco Products (CTP), and the Food and Drug Administration (FDA) represents a plethora of of data on tobacco-related attitudes and behaviors [@PATH]. This longitudinal study provides invaluable insights into how tobacco use patterns, attitudes, and exposure evolve over time. This is especially true among children and adolescents.
@@ -81,7 +84,7 @@ One hypothesis that was supported was that participants who self-identified as s
 These results highlight the importance of comprehensive multi-component interventions to reduce tobacco use among adolescents. The null findings in the associations between perceptions of harmfulness and potential for addiction and smoking status indicate that knowledge of the harms of tobacco use alone does little to deter smoking. Instead of relying solely on health education for prevention efforts, paired education and behavioral interventions will likely have a larger effect on smoking among this population. Future studies should continue to consider multi-component programming to prevent the initiation of smoking by adolescents. Future studies should also ensure that samples are representative of the general population- our sample may have included some bias, mainly that higher socioeconomic status (SES) families may have been overrepresented. The largest proportion of the sample (37%) indicated a family income of over \$100,000 a year, while the national median household income is closer to \$80,000. This may be particularly relevant to our sample, as low SES has been correlated to increased cigarette use [@hiscock2012].
 
 
-## Code
+## Visuals
 ```{r, include=FALSE}
 
 library(tidyverse)
